@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif; /* Para ficar parecido com a imagem */
+}
+
+.main-header {
+  display: flex; /* "Ei navegador, ative o modo flexível nesta caixa!" */
+  justify-content: space-between; /* "Agora, espalhe elmentos pelas pontas da tela." */
+  align-items: center; /* "E deixe todo mundo alinhado no meio da altura." */
+  padding: 0 2%; /* "Dê um respiro nas laterais para não encostar no canto." */
+  border-bottom: 1px solid #f4f4f4;
+}
+
+/* 1. Logo */
+.logo-header img {
+  width: 150px; /* Tamanho proporcional à imagem */
+  padding: 0px;
+  display: block;
+}
+
+/* 2. Barra de Busca */
+.search-form {
+  display: flex;
+  align-items: center;
+  background-color: #f4f4f4;
+  padding: 5px 15px;
+  border-radius: 8px;
+  flex-grow: 0.4; /* Faz a barra ocupar um espaço razoável */
+  margin: 0 20px;
+  
+}
+
+.search-form input {
+  border: none;
+  background: transparent;
+  outline: none; /* nao ficar marcado ao usuario clicar*/
+  padding: 7px;
+  width: 100%;
+  font-size: 14px;
+}
+
+.search-form button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  
+}
+
+/* 3. Navegação */
+.navegação ul {
+  display: flex;
+  list-style: none;
+  gap: 30px; /* Espaço entre os links */
+}
+
+.navegação a {
+  text-decoration: none;
+  color: #999; /* Cor cinza da imagem */
+  font-size: 14px;
+  transition: color 0.7s;
+}
+
+.navegação a:hover {
+  color: #000; /* Destaque ao passar o mouse */
+}
+
+.navegação ul:hover {
+  display: flex;
+  list-style: none;
+  gap: 30px; /* Espaço entre os links */
+  transform: scale(1.01);
+}
+
+/* 4. Ícones da Direita */
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon-carrinho img,
+.button-conta img {
+  width: 24px; /* Tamanho padrão de ícones de interface */
+  height: auto;
+}
+
+.logo-header:hover img {
+  transform: scale(1.05); /* Um aumento bem leve para a logo não exagerar */
+}
+
+/* Efeito no Carrinho e no Usuário */
+.icon-carrinho:hover,
+.button-conta:hover {
+  transform: scale(1.2); /* Um pouco mais de destaque para os ícones */
+}
+
+.button-conta {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.button-conta:hover {
+  color: #000; /* Destaque ao passar o mouse */
+}
+
+/* Classe utilitária para acessibilidade */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

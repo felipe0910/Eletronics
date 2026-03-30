@@ -1,0 +1,178 @@
+/* banner samrtphone*/
+
+.banner-1 {
+  background-image: linear-gradient(#18154b 0%, #211c24 100%);
+  height: 500px; /* Defina uma altura fixa ou mínima */
+  display: flex; /* Transforma em container flexível */
+  align-items: center; /* Alinha o conteúdo verticalmente ao centro */
+  justify-content: space-around; /* Distribui o texto e a imagem com espaço entre eles */
+  padding: 0 10%; /* Cria um respiro nas laterais */
+  overflow: hidden;
+}
+
+.banner-text {
+  color: white;
+  max-width: 500px; /* Evita que o texto espalhe muito */
+}
+
+/* Estilo para "Eletronics" em cinza */
+.banner-text span {
+  color: #666;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.banner-text h1 {
+  font-size: 80px; /* Bem grande como na imagem */
+  color: #2cbfbf;
+  margin: 0;
+  line-height: 1; /* Diminui o espaço entre as linhas */
+}
+
+.banner-text h2 {
+  font-size: 70px;
+  margin: 0;
+  line-height: 1;
+}
+
+.banner-text p {
+  font-size: 18px;
+  margin: 20px 0;
+  color: #ccc;
+}
+
+/* O botão de detalhes */
+.btn-detalhes {
+  display: inline-block;
+  padding: 10px 40px;
+  border: 1px solid white;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btn-detalhes:hover {
+  transform: scale(1.05);
+}
+
+/* A imagem agora se ajusta à altura do banner */
+.banner1-img {
+  height: 100%; /* Ela ocupa quase todo o banner */
+  width: auto; /* Mantém a proporção sem amassar */
+}
+
+/*Banner -2 computador */
+
+/* Container Principal */
+.banner-pc {
+  background-color: #dbdbdb; /* Fundo branco como no print */
+  width: 35%; /* Ajuste a largura conforme o layout pai */
+  height: 270px; /* Altura fixa para manter o alinhamento */
+  display: flex; /* Coloca imagem e texto lado a lado */
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza o conjunto no meio */
+  padding: 20px;
+  gap: 20px; /* Espaço entre a imagem e o texto */
+}
+
+/* Estilização da Imagem */
+.pc-img {
+  height: 80%; /* Faz a imagem ocupar quase toda a altura */
+  width: auto; /* Mantém a proporção */
+  width: 100%;
+  margin-left: 35%;
+}
+
+/* Bloco de Texto */
+.pc-text {
+  max-width: 300px; /* Limita a largura para o texto quebrar igual ao print */
+  text-align: left;
+  margin-right: 50%;
+}
+
+.pc-text h3 {
+  font-size: 32px; /* Tamanho grande, mas proporcional */
+  color: #000000; /* Título preto */
+  margin: 0;
+  font-family: sans-serif;
+  font-weight: 500;
+}
+
+.pc-text p {
+  font-size: 10px;
+  color: #999; /* Cinza claro para o subtítulo */
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+/* Bannee-3 */
+
+.banner-fone {
+  background-color: #a1a1a1; /* Fundo branco como no print */
+  width: 35%; /* Ajuste a largura conforme o layout pai */
+  height: 270px; /* Altura fixa para manter o alinhamento */
+  display: flex; /* Coloca imagem e texto lado a lado */
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza o conjunto no meio */
+  padding: 20px;
+  gap: 20px; /* Espaço entre a imagem e o texto */
+}
+
+/* Estilização da Imagem */
+.fone-img {
+  height: 80%; /* Faz a imagem ocupar quase toda a altura */
+  width: auto; /* Mantém a proporção */
+  margin-right: 13%;
+}
+
+/* Bloco de Texto */
+.fone-text {
+  max-width: 300px; /* Limita a largura para o texto quebrar igual ao print */
+  text-align: left;
+  margin-right: 30%;
+}
+
+.fone-text h4 {
+  font-size: 48px; /* Tamanho grande, mas proporcional */
+  color: #ffffff; /* Título preto */
+  margin: 0;
+  font-family: sans-serif;
+  font-weight: 500;
+}
+
+.fone-text p {
+  font-size: 14px;
+  color: #ffffff; /* Cinza claro para o subtítulo */
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+/*Baner-4 notebook */
+
+/* 1. O Container que junta a esquerda e a direita */
+.banner-notebook {
+  background-color: #2cbfbf;
+  width: 50%; /* Agora ele ocupa a metade direita */
+  display: flex;
+  flex-direction: column; /* Texto em cima, imagem embaixo */
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  overflow: hidden;
+  margin-left: 50%;
+  height: 50%;
+
+  /* Remova margens manuais se houver */
+}
+
+/* Garante que o texto e imagem fiquem centralizados */
+.notebook-text {
+  text-align: center;
+  color: #000;
+}
+
+.note-img {
+  width: 50%;
+  max-width: 450px;
+  margin-top: auto; /* Cola a imagem no fundo do banner */
+}

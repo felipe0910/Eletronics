@@ -1,0 +1,4 @@
+baixar extensão C# dev kit
+Net .sdk
+dotnet new console --force
+dotnet run

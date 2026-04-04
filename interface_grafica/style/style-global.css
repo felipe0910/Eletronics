@@ -11,6 +11,11 @@
   align-items: center; /* "E deixe todo mundo alinhado no meio da altura." */
   padding: 0 2%; /* "Dê um respiro nas laterais para não encostar no canto." */
   border-bottom: 1px solid #f4f4f4;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 1000;
+  width: 100%;
 }
 
 /* 1. Logo */
@@ -67,11 +72,17 @@
   color: #000; /* Destaque ao passar o mouse */
 }
 
-.navegação ul:hover {
-  display: flex;
-  list-style: none;
-  gap: 30px; /* Espaço entre os links */
-  transform: scale(1.01);
+.navegação a {
+  text-decoration: none;
+  color: #999;
+  font-size: 14px;
+  display: inline-block; /* Importante para o transform funcionar bem */
+  transition: color 0.3s, transform 0.3s; /* Diminuí o tempo para ser mais responsivo */
+}
+
+.navegação a:hover {
+  color: #000;
+  transform: scale(1.05); /* Agora apenas o link focado cresce */
 }
 
 /* 4. Ícones da Direita */
@@ -103,10 +114,13 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  
+  
 }
 
 .button-conta:hover {
   color: #000; /* Destaque ao passar o mouse */
+  transform: scale(1.1);
 }
 
 /* Classe utilitária para acessibilidade */
@@ -119,4 +133,38 @@
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+
+footer {
+    background-color: #000; /* Fundo preto conforme o protótipo */
+    color: #fff;            /* Texto branco */
+    padding: 80px 20px;     /* Espaçamento interno generoso (topo/base e laterais) */
+    display: flex;
+    flex-direction: column; /* Alinha os itens um embaixo do outro */
+    align-items: center;    /* Centraliza todos os itens horizontalmente */
+    text-align: center;     /* Centraliza o texto do parágrafo */
+}
+
+/* Espaçamento entre os ícones sociais e o logo */
+footer img:first-child {
+    width: auto;
+    max-height: 24px;       /* Tamanho controlado para ícones sociais */
+    margin-bottom: 40px;
+}
+
+/* Espaçamento entre o logo e o texto */
+footer img:nth-child(2) {
+    width: auto;
+    max-height: 40px;       /* Tamanho do logo da loja */
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+footer p {
+    font-size: 14px;
+    color: #999;            /* Cinza suave para o texto descritivo */
+    line-height: 1.6;
+    max-width: 400px;       /* Limita a largura para o texto não espalhar muito */
+    margin: 0;
 }

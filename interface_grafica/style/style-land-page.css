@@ -1,3 +1,4 @@
+
 /* banner samrtphone*/
 
 .banner-1 {
@@ -8,7 +9,33 @@
   justify-content: space-around; /* Distribui o texto e a imagem com espaço entre eles */
   padding: 0 10%; /* Cria um respiro nas laterais */
   overflow: hidden;
+
+
 }
+
+
+/* --- EFEITO HOVER NO BANNER SMARTPHONE --- */
+
+/* 1. Estado Normal do botão (para garantir uma transição suave) */
+.banner-1 .banner-text a {
+    transition: all 0.3s ease;
+    /* Aqui você mantém o estilo atual do seu botão (borda, cores, etc) */
+}
+
+/* 2. O Pulo do Gato: Hover no BANNER inteiro afeta o BOTÃO */
+.banner-1:hover .banner-text a {
+    background-color: #cfd9d9; /* Cor ciana do seu tema */
+    color: #18154b;            /* Cor escura do fundo para contraste */
+    border-color: #ffffff;
+    transform: scale(1.05);    /* Leve zoom no botão para destaque */
+}
+
+/* 3. Ajuste opcional: Cursor de mão no banner todo para indicar que é clicável */
+.banner-1 {
+    cursor: pointer;
+}
+
+
 
 .banner-text {
   color: white;
@@ -41,19 +68,7 @@
   color: #ccc;
 }
 
-/* O botão de detalhes */
-.btn-detalhes {
-  display: inline-block;
-  padding: 10px 40px;
-  border: 1px solid white;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-}
 
-.btn-detalhes:hover {
-  transform: scale(1.05);
-}
 
 /* A imagem agora se ajusta à altura do banner */
 .banner1-img {
@@ -61,118 +76,444 @@
   width: auto; /* Mantém a proporção sem amassar */
 }
 
-/*Banner -2 computador */
-
-/* Container Principal */
-.banner-pc {
-  background-color: #dbdbdb; /* Fundo branco como no print */
-  width: 35%; /* Ajuste a largura conforme o layout pai */
-  height: 270px; /* Altura fixa para manter o alinhamento */
-  display: flex; /* Coloca imagem e texto lado a lado */
-  align-items: center; /* Centraliza verticalmente */
-  justify-content: center; /* Centraliza o conjunto no meio */
-  padding: 20px;
-  gap: 20px; /* Espaço entre a imagem e o texto */
-}
-
-/* Estilização da Imagem */
-.pc-img {
-  height: 80%; /* Faz a imagem ocupar quase toda a altura */
-  width: auto; /* Mantém a proporção */
+/* Container que organiza os 3 banners de baixo */
+.banners-grid {
+  display: grid;
+  /* Cria duas colunas: a da esquerda com 40% e a da direita com 60% */
+  grid-template-columns: 4fr 6fr; 
+  /* Cria duas linhas de alturas iguais */
+  grid-template-rows: 270px 270px; 
   width: 100%;
-  margin-left: 35%;
 }
 
-/* Bloco de Texto */
+
+
+
+/* --- Banner Computadores --- */
+.banner-pc {
+  grid-column: 1; /* Coluna 1 */
+  grid-row: 1;    /* Linha 1 */
+  background-image: linear-gradient( #e2e2e2 10%, #bcbbbb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.pc-img {
+  height: 73%;
+  width: auto;
+  margin-right: 0%;
+}
+
 .pc-text {
-  max-width: 300px; /* Limita a largura para o texto quebrar igual ao print */
-  text-align: left;
-  margin-right: 50%;
+  max-width: 250px;
+  margin-right: 25%;
+  
 }
 
 .pc-text h3 {
-  font-size: 32px; /* Tamanho grande, mas proporcional */
-  color: #000000; /* Título preto */
+  font-size: 32px;
+  color: #000000;
   margin: 0;
-  font-family: sans-serif;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .pc-text p {
   font-size: 10px;
-  color: #999; /* Cinza claro para o subtítulo */
+  color: #666;
   margin-top: 10px;
-  line-height: 1.4;
 }
 
-/* Bannee-3 */
+/* --- EFEITO HOVER NO BANNER PC --- */
+
+/* Garante que o botão tenha uma transição suave ao mudar de cor */
+.btn-pc {
+  transition: all 0.3s ease;
+}
+
+/* Quando o mouse estiver em QUALQUER LUGAR do .banner-pc, o botão muda */
+.banner-pc:hover .btn-pc {
+   background-color: #000000;/* Cor que você definiu no seu código anterior */
+  color: #fff;               /* Texto branco para contraste */
+  border-color: #ffffff;
+  transform: scale(1.05);    /* Leve aumento para destaque */
+  
+}
+
+/* Opcional: muda o cursor para indicar que a área é interativa */
+.banner-pc {
+  cursor: pointer;
+}
+
+
+.btn-pc {
+    display: inline-block;
+    /* Ajuste o preenchimento para diminuir o tamanho do botão */
+    padding: 8px 30px; 
+    
+    /* No protótipo a borda é fina e escura ou cinza */
+    border: 1px solid #666; 
+    background-color: transparent; /* Remove o fundo branco */
+    
+    color: #666; /* Cor do texto igual à borda */
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    
+    /* Posicionamento */
+    margin-top: 15px;
+    transition: all 0.3s ease;
+
+}
+
+
+
+
+
+/* --- Banner Fones --- */
+
+
+.fone-text {
+  margin-left: -110px; /* Use isso para empurrar o texto um pouco mais para a direita */
+  /* Ou use padding-left: 5%; se quiser algo proporcional */
+  font-size: 32px;
+  color: #000;
+  
+  font-weight: 500;
+  
+}
 
 .banner-fone {
-  background-color: #a1a1a1; /* Fundo branco como no print */
-  width: 35%; /* Ajuste a largura conforme o layout pai */
-  height: 270px; /* Altura fixa para manter o alinhamento */
-  display: flex; /* Coloca imagem e texto lado a lado */
-  align-items: center; /* Centraliza verticalmente */
-  justify-content: center; /* Centraliza o conjunto no meio */
+  grid-column: 1;
+  grid-row: 2;
+  background-image: linear-gradient( #e6e6e6 10%, #cacaca 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centraliza o conjunto no banner */
   padding: 20px;
-  gap: 20px; /* Espaço entre a imagem e o texto */
+  gap: 50%; /* Controle a distância exata entre a imagem e o texto aqui */
 }
 
-/* Estilização da Imagem */
 .fone-img {
-  height: 80%; /* Faz a imagem ocupar quase toda a altura */
-  width: auto; /* Mantém a proporção */
-  margin-right: 13%;
+    position: absolute; /* Trava a imagem em um lugar fixo */
+    left: 0;            /* Cola na esquerda */
+    height: 170px;      
+    width: auto;
+    z-index: 1;         /* Fica atrás do texto se necessário */
 }
 
-/* Bloco de Texto */
 .fone-text {
-  max-width: 300px; /* Limita a largura para o texto quebrar igual ao print */
-  text-align: left;
-  margin-right: 30%;
+    /* Agora o texto se move sem empurrar a imagem */
+    margin-left: auto;  /* Empurra o bloco de texto para a direita */
+    margin-right: 19%;  /* Ajuste essa porcentagem para alinhar com o texto de cima */
+    
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 2;
 }
 
 .fone-text h4 {
-  font-size: 48px; /* Tamanho grande, mas proporcional */
-  color: #ffffff; /* Título preto */
-  margin: 0;
-  font-family: sans-serif;
-  font-weight: 500;
+    margin: 0;
+    font-size: 32px;
 }
 
 .fone-text p {
-  font-size: 14px;
-  color: #ffffff; /* Cinza claro para o subtítulo */
-  margin-top: 10px;
-  line-height: 1.4;
+    color: #666;
+    font-size: 11px;
+    margin: 5px 0;
 }
 
-/*Baner-4 notebook */
+.btn-fone {
+    display: inline-block;
+    /* Ajuste o preenchimento para diminuir o tamanho do botão */
+    padding: 8px 30px; 
+    
+    /* No protótipo a borda é fina e escura ou cinza */
+    border: 1px solid #666; 
+    background-color: transparent; /* Remove o fundo branco */
+    
+    color: #666; /* Cor do texto igual à borda */
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    
+    /* Posicionamento */
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
 
-/* 1. O Container que junta a esquerda e a direita */
+.btn-fone:hover {
+    /* No hover ele pode ganhar um fundo leve ou apenas aumentar */
+    background-color: rgba(0, 0, 0, 0.05); 
+    transform: scale(1.02);
+}
+
+
+/* --- EFEITO HOVER NO BANNER PC --- */
+
+/* Garante que o botão tenha uma transição suave ao mudar de cor */
+.btn-fone {
+  transition: all 0.3s ease;
+}
+
+/* Quando o mouse estiver em QUALQUER LUGAR do .banner-pc, o botão muda */
+.banner-fone:hover .btn-fone {
+  background-color: #000000;/* Cor que você definiu no seu código anterior */
+  color: #fff;               /* Texto branco para contraste */
+  border-color: #ffffff;
+  transform: scale(1.05);    /* Leve aumento para destaque */
+}
+
+/* Opcional: muda o cursor para indicar que a área é interativa */
+.banner-fone {
+  cursor: pointer;
+}
+
+
+
+
+/* --- Banner Notebook (O azul que fica na direita) --- */
 .banner-notebook {
-  background-color: #2cbfbf;
-  width: 50%; /* Agora ele ocupa a metade direita */
-  display: flex;
-  flex-direction: column; /* Texto em cima, imagem embaixo */
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 10px;
-  overflow: hidden;
-  margin-left: 50%;
-  height: 50%;
-
-  /* Remova margens manuais se houver */
+    grid-column: 2;
+    grid-row: 1 / span 2;
+   background-image: linear-gradient( #2cbfbf 10%, #128cad 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza o conteúdo verticalmente */
+    align-items: flex-start; /* Alinha o texto à esquerda internamente */
+    padding: 50px;
+    position: relative;     /* CRUCIAL: para a imagem se basear neste bloco */
+    overflow: hidden;       /* Impede que a imagem crie barra de rolagem se sobrar */
 }
 
-/* Garante que o texto e imagem fiquem centralizados */
-.notebook-text {
-  text-align: center;
-  color: #000;
-}
+
 
 .note-img {
-  width: 50%;
-  max-width: 450px;
-  margin-top: auto; /* Cola a imagem no fundo do banner */
+    position: absolute;
+    right: -30px;      /* Ajuste esse valor para mostrar mais ou menos do notebook */
+    top: 60px;         /* Cola na base do banner */
+    height: 85%;       /* Define a altura em relação ao banner, assim ela escala com o zoom */
+    width: auto;       /* Mantém a proporção */
+    object-fit: contain;
+    z-index: 1;
+    pointer-events: none; /* Evita que a imagem atrapalhe cliques no botão */
+}
+
+
+.notebook-text {
+    max-width: 450px; /* Limita a largura para não bater na imagem */
+    z-index: 2;       /* Garante que o texto fique por cima da imagem */
+    text-align: left;
+    
+}
+
+
+.notebook-text h5 {
+    font-size: 48px;
+    color: #e8e7e7;
+    margin-bottom: 15px;
+    
+    /* Removido o margin-right: 60% que desalinhava o título */
+}
+
+.notebook-text p {
+    max-width: 400px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: left; /* Garante que o texto do parágrafo comece na esquerda */
+    margin-left: 0;   /* Garante que não haja espaço sobrando na esquerda */
+    color: #dedede;
+    
+}
+
+
+
+/* O botão de detalhes */
+.btn-note {
+  display: inline-block;
+  padding: 10px 40px;
+  border: 1px solid white;
+  color: white;
+  margin-right: 60%;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.btn-note:hover {
+  transform: scale(1.05);
+}
+
+
+/* --- EFEITO HOVER NO BANNER PC --- */
+
+/* Garante que o botão tenha uma transição suave ao mudar de cor */
+.btn-note {
+  transition: all 0.3s ease;
+}
+
+/* Quando o mouse estiver em QUALQUER LUGAR do .banner-pc, o botão muda */
+.banner-notebook:hover .btn-note {
+  background-color: #dcdcdc; /* Cor ciana do seu tema */
+  color:#2cbfbf ;               /* Texto branco para contraste */
+  border-color: #2cbfbf;
+  transform: scale(1.05);    /* Leve aumento para destaque */
+}
+
+/* Opcional: muda o cursor para indicar que a área é interativa */
+.banner-notebook {
+  cursor: pointer;
+}
+
+
+
+
+ /* detalhes celular*/
+.btn-detalhes {
+  display: inline-block;
+  padding: 10px 40px;
+  border: 1px solid white;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 15px;
+
+}
+
+.btn-detalhes:hover{
+  transform: scale(1.05);
+}
+
+
+/*  margem categoria*/
+
+
+
+.categoria {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 40px 0;
+}
+
+.categoria-item a {
+    display: flex;
+    flex-direction: column; /* Faz o texto ficar abaixo da imagem */
+    justify-content: center;
+    align-items: center;
+    gap: 10px;              /* Espaço entre a imagem e o texto */
+    
+    background-color: #ededed;
+    border-radius: 15px;
+    width: 170px;
+    height: 130px;
+    text-decoration: none; 
+    color: #262626;            /* Cor do texto */
+    font-weight: 600;       /* Deixa o texto levemente em negrito */
+    font-family: sans-serif;
+    transition: all 0.3s ease;
+}
+
+.categoria-item a:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.categoria-item img {
+    max-width: 50px; /* Reduzi um pouco para caber o texto com folga */
+    height: auto;
+    pointer-events: none;
+}
+
+.categoria-item span {
+    font-size: 14px; /* Tamanho da fonte do texto */
+}
+
+
+
+
+
+/* seletor Produtos*/
+
+.Produtos {
+    display: flex;
+    width: 100%;
+    align-items: stretch; /* Garante que todos os cards tenham a mesma altura */
+}
+
+.produto-card {
+    flex: 1;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/* --- CORES DE FUNDO DO PROTÓTIPO --- */
+.white { background-color: #ffffff; }
+.light-grey { background-color: #f9f9f9; }
+.medium-grey { background-color: #eaeaea; }
+.dark-grey { background-color: #2c2c2c; color: #ffffff; }
+
+/* --- ESTILO DOS LINKS E TEXTOS --- */
+.produto-card a {
+    text-decoration: none; /* Remove o sublinhado azul */
+    color: inherit;        /* Mantém as letras pretas ou brancas */
+    display: flex;
+    flex-direction: column; /* Alinha tudo em pé (Vertical) */
+    align-items: center;    /* Centraliza tudo horizontalmente */
+    height: 100%;
+}
+
+.produto-card img {
+    height: 200px;         /* Trava a altura das imagens para não desalinharem */
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 30px;
+}
+
+.produto-card span {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.produto-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;           /* Cor cinza para os cards claros */
+    margin-bottom: 35px;
+    max-width: 260px;      /* Limita a largura do texto para ficar elegante */
+}
+
+/* Ajuste do texto para o card escuro (Macbook) */
+.dark-grey p {
+    color: #bbb;
+}
+
+/* --- O BOTÃO SHOP NOW --- */
+.btn-shop {
+    margin-top: auto;      /* Empurra o botão para o final do card */
+    padding: 12px 40px;
+    border: 1px solid currentColor; /* A borda segue a cor da letra automaticamente */
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* --- EFEITOS DE HOVER --- */
+.produto-card a:hover .btn-shop {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+.dark-grey a:hover .btn-shop {
+    background-color: #fff;
+    color: #2c2c2c;
+    border-color: #fff;
 }

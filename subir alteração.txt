@@ -11,6 +11,8 @@ git commit -m "digite o que você atualizou"
 
 git push 
 
+git pull
+
 
 
 se outra pessoa fez atualizações 

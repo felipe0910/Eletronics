@@ -1,0 +1,27 @@
+se tiver você tiver feito atualizações:
+
+git config --global user.name "seu usuário"
+git config --global user.email " seu email do git"
+
+git status
+
+git add .
+
+git commit -m "digite o que você atualizou"
+
+git push 
+
+
+
+se outra pessoa fez atualizações 
+
+git pull
+
+
+se houver conflitos
+
+git status
+
+git add .
+git commit -m "minhas alterações"
+git pull

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("pin C#")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc2ece70a177eb9cf3c731002e4880ffcd7141bf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7264fef549091cc6fa0ef856fc3e38a716b0f17b")]
 [assembly: System.Reflection.AssemblyProductAttribute("pin C#")]
 [assembly: System.Reflection.AssemblyTitleAttribute("pin C#")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

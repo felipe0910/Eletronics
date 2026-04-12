@@ -144,7 +144,12 @@ footer {
     flex-direction: column; /* Alinha os itens um embaixo do outro */
     align-items: center;    /* Centraliza todos os itens horizontalmente */
     text-align: center;     /* Centraliza o texto do parágrafo */
+    margin-top: 10%;
+    width: 100%;
+    
 }
+
+
 
 /* Espaçamento entre os ícones sociais e o logo */
 footer img:first-child {

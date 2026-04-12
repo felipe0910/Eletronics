@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\pin C#\\pin C#.csproj": {}
+    "C:\\Eletronics\\pin C#.csproj": {}
   },
   "projects": {
-    "C:\\pin C#\\pin C#.csproj": {
+    "C:\\Eletronics\\pin C#.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\pin C#\\pin C#.csproj",
+        "projectUniqueName": "C:\\Eletronics\\pin C#.csproj",
         "projectName": "pin C#",
-        "projectPath": "C:\\pin C#\\pin C#.csproj",
-        "packagesPath": "C:\\Users\\djalm\\.nuget\\packages\\",
-        "outputPath": "C:\\pin C#\\obj\\",
+        "projectPath": "C:\\Eletronics\\pin C#.csproj",
+        "packagesPath": "C:\\Users\\felip\\.nuget\\packages\\",
+        "outputPath": "C:\\Eletronics\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\djalm\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\felip\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"

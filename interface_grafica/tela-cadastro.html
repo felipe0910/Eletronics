@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../interface_grafica/style/style-global.css" />
+    <link rel="stylesheet" href="../interface_grafica/style/style-login-cadastro.css">
+    <title>Eletronics - Cadastro</title>
+</head>
+<body>
+
+    <header class="main-header">
+        <a href="index.html" class="logo-header">
+            <img src="img/logo.png" alt="logo - eletronics story" />
+        </a>
+
+        <form action="/search" class="search-form">
+            <label for="search-input" class="sr-only">Pesquisar</label>
+            <input type="search" id="search-input" placeholder="Search" />
+            <button type="submit">🔍</button>
+        </form>
+
+        <nav class="navegação">
+            <ul>
+                <li><a href="#">Computadores</a></li>
+                <li><a href="#">Notebook</a></li>
+                <li><a href="#">Smartphones</a></li>
+                <li><a href="#">Fones</a></li>
+            </ul>
+        </nav>
+
+        <div class="user-actions">
+            <a href="#" aria-label="carrinho de compras" class="icon-carrinho">
+                <img src="img/carrinho.png" alt="" />
+            </a>
+            <button type="button" aria-label="conta" class="button-conta">
+                <img src="img/user.png" alt="" />
+            </button>
+        </div>
+    </header>
+
+    <main class="login-wrapper">
+        <section class="auth-card">
+            <div class="auth-header">
+                <img src="img/logo.png" alt="Logo">
+                <h2>Crie sua conta</h2>
+                <p>Preencha os dados abaixo para se cadastrar</p>
+            </div>
+
+            <form action="#" class="auth-form">
+                <div class="input-group">
+                    <label>Nome Completo</label>
+                    <input type="text" placeholder="Seu nome completo" required>
+                </div>
+
+                <div class="input-group">
+                    <label>E-mail</label>
+                    <input type="email" placeholder="seu@email.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Senha</label>
+                    <input type="password" placeholder="Crie uma senha" required>
+                </div>
+
+                <button type="submit" class="btn-auth">Cadastrar</button>
+                
+                <div class="auth-footer">
+                    <span>Já possui uma conta? <a href="../interface_grafica/tela-login.html">Faça login</a></span>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <img src="img/Social Icons.png" alt="">
+        <img src="img/logo.png" alt="">
+        <p>We are a residential interior design firm located in Portland. Our boutique-studio offers more than</p>
+    </footer>
+    
+</body>
+</html>

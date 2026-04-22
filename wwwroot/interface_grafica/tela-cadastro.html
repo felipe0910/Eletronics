@@ -47,28 +47,28 @@
                 <p>Preencha os dados abaixo para se cadastrar</p>
             </div>
 
-            <form action="#" class="auth-form">
-                <div class="input-group">
-                    <label>Nome Completo</label>
-                    <input type="text" placeholder="Seu nome completo" required>
-                </div>
+  <form action="/cadastrar-usuario" method="POST" class="auth-form">
+    <div class="input-group">
+        <label>Nome Completo</label>
+        <input type="text" name="nomeCompleto" placeholder="Seu nome completo" required>
+    </div>
 
-                <div class="input-group">
-                    <label>E-mail</label>
-                    <input type="email" placeholder="seu@email.com" required>
-                </div>
+    <div class="input-group">
+        <label>E-mail</label>
+        <input type="email" name="email" placeholder="seu@email.com" required>
+    </div>
 
-                <div class="input-group">
-                    <label>Senha</label>
-                    <input type="password" placeholder="Crie uma senha" required>
-                </div>
+    <div class="input-group">
+        <label>Senha</label>
+        <input type="password" name="senha" placeholder="Crie uma senha" required>
+    </div>
 
-                <button type="submit" class="btn-auth">Cadastrar</button>
-                
-                <div class="auth-footer">
-                    <span>Já possui uma conta? <a href="../interface_grafica/tela-login.html">Faça login</a></span>
-                </div>
-            </form>
+    <button type="submit" class="btn-auth">Cadastrar</button>
+    
+    <div class="auth-footer">
+        <span>Já possui uma conta? <a href="tela-login.html">Faça login</a></span>
+    </div>
+</form>
         </section>
     </main>
 

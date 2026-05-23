@@ -70,3 +70,17 @@ C:\Eletronics\obj\Debug\net8.0\pin C#.pdb
 C:\Eletronics\obj\Debug\net8.0\pin C#.genruntimeconfig.cache
 C:\Eletronics\obj\Debug\net8.0\ref\pin C#.dll
 C:\Eletronics\bin\Debug\net8.0\pin C#.staticwebassets.runtime.json
+C:\Eletronics\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Eletronics\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Eletronics\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Eletronics\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Eletronics\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+C:\Eletronics\bin\Debug\net8.0\OpenAI.dll
+C:\Eletronics\bin\Debug\net8.0\System.ClientModel.dll
+C:\Eletronics\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
+C:\Eletronics\bin\Debug\net8.0\System.IO.Pipelines.dll
+C:\Eletronics\bin\Debug\net8.0\System.Memory.Data.dll
+C:\Eletronics\bin\Debug\net8.0\System.Net.ServerSentEvents.dll
+C:\Eletronics\bin\Debug\net8.0\System.Text.Encodings.Web.dll
+C:\Eletronics\bin\Debug\net8.0\System.Text.Json.dll
+C:\Eletronics\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll

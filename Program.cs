@@ -1,4 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -7,10 +10,10 @@ var app = builder.Build();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-// 2. String de Conexão
+// 2. String de Conexão (A mesma que você já usa)
 string strConexao = "Server=DESKTOP;Database=EletronicsStore;User Id=sa;Password=1234;TrustServerCertificate=True;";
 
-// 3. ROTA DE CADASTRO
+// 3. ROTA DE CADASTRO (Mantida intacta)
 app.MapPost("/cadastrar-usuario", async (HttpContext contexto) => {
     var form = await contexto.Request.ReadFormAsync();
     
@@ -27,7 +30,7 @@ app.MapPost("/cadastrar-usuario", async (HttpContext contexto) => {
     return Results.Redirect("/interface_grafica/tela-login.html");
 });
 
-// 4. ROTA DE LOGIN
+// 4. ROTA DE LOGIN (Mantida intacta)
 app.MapPost("/login", async (HttpContext contexto) => {
     var form = await contexto.Request.ReadFormAsync();
 
@@ -51,5 +54,32 @@ app.MapPost("/login", async (HttpContext contexto) => {
     }
 });
 
-// 5. Ligar o servidor na porta que combinamos
+// 5. NOVA ROTA: BUSCAR PRODUTOS DIRETO DO BANCO DE DADOS
+// Essa rota vai ler os 9 iPhones da tabela e mandar para o front-end em JSON
+app.MapGet("/api/produtos", () => {
+    var produtos = new List<object>();
+
+    using (SqlConnection conn = new SqlConnection(strConexao)) {
+        // Seleciona as colunas id_produto, nome, preco e nome_imagem exatamente como na imagem do seu banco
+        string sql = "SELECT id_produto, nome, preco, nome_imagem FROM Produtos WHERE categoria = 'Smartphones'";
+        SqlCommand cmd = new SqlCommand(sql, conn);
+
+        conn.Open();
+        using (SqlDataReader reader = cmd.ExecuteReader()) {
+            while (reader.Read()) {
+                produtos.Add(new {
+                    id_produto = reader.GetInt32(0),
+                    nome = reader.GetString(1),
+                    preco = reader.GetDecimal(2),
+                    nome_imagem = reader.GetString(3)
+                });
+            }
+        }
+    }
+
+    // Retorna a lista real de celulares com o status 200 (Ok)
+    return Results.Ok(produtos);
+});
+
+// 6. Ligar o servidor na porta que combinamos
 app.Run("http://localhost:5050");

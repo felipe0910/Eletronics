@@ -147,3 +147,48 @@ body {
     flex-direction: column;
   }
 }
+
+/* --- ESTILIZAÇÃO DO CAMPO DE ENDEREÇO --- */
+.comprar__endereco-bloco {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 20px 0;
+    width: 100%;
+}
+
+/* --- AJUSTE DE POSICIONAMENTO DO ENDEREÇO --- */
+.comprar__endereco-bloco {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 20px 0;
+    width: 100%; /* Força o bloco a ocupar toda a largura da coluna */
+    box-sizing: border-box;
+}
+
+.comprar__endereco-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #333;
+    text-align: left; /* Garante o alinhamento à esquerda junto com a descrição */
+}
+
+.comprar__endereco-input {
+    width: 100%; /* Força o input a alinhar com as bordas do botão comprar e do cabeçalho */
+    max-width: 100%; /* Impede que o flexbox encolha o campo */
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    box-sizing: border-box; /* Garante que o padding não jogue o input para fora do limite */
+    background-color: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efeito visual de foco ao clicar no campo */
+.comprar__endereco-input:focus {
+    border-color: #000;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+    outline: none;
+}

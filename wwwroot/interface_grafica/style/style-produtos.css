@@ -146,6 +146,10 @@
 
 .produto-botao {
   margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   background: #07142B;
   color: #fff;
   border: none;

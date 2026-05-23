@@ -173,3 +173,48 @@ footer p {
     max-width: 400px;       /* Limita a largura para o texto não espalhar muito */
     margin: 0;
 }
+
+/* Container principal da seção de pagamento */
+.comprar__pagamento-container {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Título "Método de Pagamento" */
+.comprar__pagamento-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+/* Lista de opções alinhadas na HORIZONTAL */
+.comprar__pagamento-opcoes {
+    display: flex;
+    flex-direction: row; /* Alinha um ao lado do outro */
+    flex-wrap: wrap;     /* Se a tela for pequena (celular), quebra a linha automaticamente */
+    gap: 20px;          /* Espaço horizontal entre as opções */
+}
+
+/* Cada opção (Bolinha + Texto) */
+.comprar__pagamento-opcao {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: #333;
+    cursor: pointer;
+    padding: 4px 0;
+    user-select: none;
+}
+
+/* Estilo da bolinha (Radio) */
+.comprar__pagamento-opcao input[type="radio"] {
+    accent-color: #001338; /* Cor azul-escura idêntica ao seu botão */
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin: 0;
+}

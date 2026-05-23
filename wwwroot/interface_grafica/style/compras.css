@@ -192,3 +192,83 @@ body {
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
     outline: none;
 }
+
+/* ==========================================================================
+   ESTILIZAÇÃO DA SEÇÃO DE MÉTODOS DE PAGAMENTO (VERTICAL)
+   ========================================================================== */
+
+/* Container principal que envolve o título e as opções */
+.comprar__pagamento-container {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+/* Título "Método de Pagamento" */
+.comprar__pagamento-label {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #333;
+    display: block;
+}
+
+/* Lista que empilha as opções na vertical */
+.comprar__pagamento-opcoes {
+    display: flex;
+    flex-direction: column; /* Alinha um embaixo do outro */
+    align-items: flex-start; /* Alinha todos à esquerda */
+    gap: 12px;               /* Espaçamento confortável entre as linhas */
+    width: 100%;
+}
+
+/* Cada opção individual (Bolinha + Texto) */
+.comprar__pagamento-opcao {
+    display: flex;
+    align-items: center;     /* Centraliza a bolinha com o texto na horizontal */
+    gap: 8px;                /* Espaço entre a bolinha e a palavra */
+    font-size: 0.95rem;
+    color: #333;
+    cursor: pointer;
+    padding: 2px 0;          /* Melhora a área de clique */
+    user-select: none;       /* Impede seleção acidental de texto ao clicar */
+}
+
+/* Customização da bolinha nativa (Radio) */
+.comprar__pagamento-opcao input[type="radio"] {
+    accent-color: #001338;   /* Usa o azul escuro padrão do seu botão Comprar */
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin: 0;
+}
+
+/* ==========================================================================
+   AUMENTAR O CELULAR QUE VEM DINAMICAMENTE DO BANCO DE DADOS
+   ========================================================================== */
+
+/* Força o container da imagem a ter um espaço maior na tela */
+/* ==========================================================================
+   FORÇAR O AUMENTO DO CELULAR VINDO DO BANCO DE DADOS
+   ========================================================================== */
+
+/* 1. Ajusta o bloco da esquerda para permitir que a foto cresça */
+.comprar .comprar__imagem {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    min-width: 400px !important; /* Dá mais espaço horizontal para o lado esquerdo */
+    padding: 20px;
+}
+
+/* 2. Altera o tamanho real do celular injetado pelo banco de dados */
+.comprar .comprar__imagem img {
+    width: 50% !important;
+    max-width: 300px !important; /* Aumentamos significativamente o limite do celular */
+    height: auto !important;
+    max-height: 500px !important; /* Impede que ele ultrapasse o topo/rodapé */
+    object-fit: contain !important; /* Mantém a proporção perfeita sem distorcer */
+}

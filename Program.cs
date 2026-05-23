@@ -54,13 +54,11 @@ app.MapPost("/login", async (HttpContext contexto) => {
     }
 });
 
-// 5. NOVA ROTA: BUSCAR PRODUTOS DIRETO DO BANCO DE DADOS
-// Essa rota vai ler os 9 iPhones da tabela e mandar para o front-end em JSON
+// 5. ROTA GERAL: BUSCAR TODOS OS PRODUTOS (Mantida intacta)
 app.MapGet("/api/produtos", () => {
     var produtos = new List<object>();
 
-    using (SqlConnection conn = new SqlConnection(strConexao)) {
-        // Seleciona as colunas id_produto, nome, preco e nome_imagem exatamente como na imagem do seu banco
+using (SqlConnection conn = new SqlConnection(strConexao)) {
         string sql = "SELECT id_produto, nome, preco, nome_imagem FROM Produtos WHERE categoria = 'Smartphones'";
         SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -76,10 +74,39 @@ app.MapGet("/api/produtos", () => {
             }
         }
     }
-
-    // Retorna a lista real de celulares com o status 200 (Ok)
-    return Results.Ok(produtos);
+ return Results.Ok(produtos);
 });
 
-// 6. Ligar o servidor na porta que combinamos
+// 6. ROTA DO BOTÃO COMPRAR: BUSCAR UM PRODUTO ÚNICO POR ID
+// Pega a imagem e a 'descricao_comercial' específica do celular clicado
+app.MapGet("/api/produtos/{id}", (int id) => {
+    object produtoEncontrado = null;
+
+    using (SqlConnection conn = new SqlConnection(strConexao)) {
+        string sql = "SELECT id_produto, nome, preco, nome_imagem, descricao_comercial FROM Produtos WHERE id_produto = @id";
+        SqlCommand cmd = new SqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("@id", id);
+
+        conn.Open();
+        using (SqlDataReader reader = cmd.ExecuteReader()) {
+            if (reader.Read()) {
+                produtoEncontrado = new {
+                    id_produto = reader.GetInt32(0),
+                    nome = reader.GetString(1),
+                    preco = reader.GetDecimal(2),
+                    nome_imagem = reader.GetString(3),
+                    descricao_comercial = reader.GetString(4)
+                };
+            }
+        }
+    }
+
+    if (produtoEncontrado == null) {
+        return Results.NotFound(new { mensagem = "Produto não encontrado." });
+    }
+
+    return Results.Ok(produtoEncontrado);
+});
+
+// 7. Ligar o servidor na porta padrão do seu projeto
 app.Run("http://localhost:5050");

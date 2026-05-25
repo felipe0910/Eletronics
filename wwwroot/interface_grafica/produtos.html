@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../interface_grafica/style/style-global.css" />
     <link rel="stylesheet" href="../interface_grafica/style/style-produtos.css" />
-    <script src="js/acessibilidade.js" defer></script>
-    <script src="js/produtos.js" defer></script>
+    <script src="js/acessibilidade.js?v=1" defer></script>
+    <script src="js/produtos.js?v=1" defer></script>
     
 <title>Eletronics</title>
 </head>
@@ -24,13 +24,15 @@
       </form>
 
       <nav class="navegação">
-        <ul>
-          <li><a href="#">Computadores</a></li>
-          <li><a href="#">Notebook</a></li>
-          <li><a href="#">Smartphones</a></li>
-          <li><a href="#">Fones</a></li>
-        </ul>
-      </nav>
+  <ul>
+    <li><a href="produtos.html">Todos</a></li>
+    <li><a href="produtos.html?categoria=computadores">Computadores</a></li>
+    <li><a href="produtos.html?categoria=notebooks">Notebook</a></li>
+    <li><a href="produtos.html?categoria=smartphones">Smartphones</a></li>
+    <li><a href="produtos.html?categoria=fones">Fones</a></li>
+    <li><a href="pedidos.html">Meus pedidos</a></li>
+  </ul>
+</nav>
 
       <div class="user-actions">
         <a href="#" aria-label="carrinho de compras" class="icon-carrinho">
@@ -46,6 +48,7 @@
       <section class="lista-produtos">
         <div class="lista-produtos__header">
           <div class="lista-produtos__info">
+            <h1 class="produtos-title">Todos os produtos</h1>
             <span class="selecionados">Selected Products: <strong>...</strong></span>
           </div>
           <div class="lista-produtos__controls">

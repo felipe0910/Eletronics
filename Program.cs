@@ -8,7 +8,13 @@ var app = builder.Build();
 
 // 1. Configurações de Arquivos (Essencial para não dar erro 404)
 app.UseDefaultFiles();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions {
+    OnPrepareResponse = ctx => {
+        ctx.Context.Response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate";
+        ctx.Context.Response.Headers["Pragma"] = "no-cache";
+        ctx.Context.Response.Headers["Expires"] = "-1";
+    }
+});
 
 // 2. String de Conexão (A mesma que você já usa)
 string strConexao = "Server=DESKTOP;Database=EletronicsStore;User Id=sa;Password=1234;TrustServerCertificate=True;";
@@ -54,15 +60,44 @@ app.MapPost("/login", async (HttpContext contexto) => {
     }
 });
 
-// 5. ROTA GERAL: BUSCAR TODOS OS PRODUTOS (Mantida intacta)
-app.MapGet("/api/produtos", () => {
+// 5. ROTA GERAL: BUSCAR PRODUTOS, COM FILTRO POR CATEGORIA
+app.MapGet("/api/produtos", (HttpRequest request) => {
     var produtos = new List<object>();
+    string categoria = request.Query["categoria"].ToString().Trim();
+    string q = request.Query["q"].ToString().Trim();
 
-using (SqlConnection conn = new SqlConnection(strConexao)) {
-        string sql = "SELECT id_produto, nome, preco, nome_imagem FROM Produtos WHERE categoria = 'Smartphones'";
-        SqlCommand cmd = new SqlCommand(sql, conn);
+    using (SqlConnection conn = new SqlConnection(strConexao)) {
+        string sql = "SELECT id_produto, nome, preco, nome_imagem FROM Produtos";
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = conn;
 
+        var conditions = new List<string>();
+
+        if (!string.IsNullOrWhiteSpace(categoria)) {
+            string filtroCategoria = categoria.ToLowerInvariant() switch {
+                "computadores" => "%computador%",
+                "notebooks" => "%notebook%",
+                "smartphones" => "%smartphone%",
+                "fones" => "%fone%",
+                _ => $"%{categoria.ToLowerInvariant()}%"
+            };
+
+            conditions.Add("LOWER(categoria) LIKE @categoria");
+            cmd.Parameters.AddWithValue("@categoria", filtroCategoria);
+        }
+
+        if (!string.IsNullOrWhiteSpace(q)) {
+            conditions.Add("LOWER(nome) LIKE @q");
+            cmd.Parameters.AddWithValue("@q", "%" + q.ToLowerInvariant() + "%");
+        }
+
+        if (conditions.Count > 0) {
+            sql += " WHERE " + string.Join(" AND ", conditions);
+        }
+
+        cmd.CommandText = sql;
         conn.Open();
+
         using (SqlDataReader reader = cmd.ExecuteReader()) {
             while (reader.Read()) {
                 produtos.Add(new {
@@ -74,7 +109,7 @@ using (SqlConnection conn = new SqlConnection(strConexao)) {
             }
         }
     }
- return Results.Ok(produtos);
+    return Results.Ok(produtos);
 });
 
 // 6. ROTA DO BOTÃO COMPRAR: BUSCAR UM PRODUTO ÚNICO POR ID
@@ -108,5 +143,72 @@ app.MapGet("/api/produtos/{id}", (int id) => {
     return Results.Ok(produtoEncontrado);
 });
 
-// 7. Ligar o servidor na porta padrão do seu projeto
+// 7. ROTA DE PEDIDO: REGISTRAR A COMPRA NO BANCO DE DADOS
+app.MapPost("/api/pedidos", async (HttpRequest request) => {
+    PedidoDto? pedido = await request.ReadFromJsonAsync<PedidoDto>();
+
+    if (pedido == null || pedido.id_produto <= 0 || pedido.quantidade <= 0 || string.IsNullOrWhiteSpace(pedido.endereco_entrega) || string.IsNullOrWhiteSpace(pedido.metodo_pagamento) || pedido.parcelas <= 0) {
+        return Results.BadRequest(new { mensagem = "Dados do pedido incompletos." });
+    }
+
+    string endereco = pedido.endereco_entrega!;
+    string metodo = pedido.metodo_pagamento!;
+
+    int novoPedidoId;
+    using (SqlConnection conn = new SqlConnection(strConexao)) {
+        string sql = @"
+            INSERT INTO Pedidos (id_produto, quantidade, total_pago, metodo_pagamento, parcelas, endereco_entrega, data_compra)
+            VALUES (@id, @q, @t, @m, @p, @e, GETDATE());
+            SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+        SqlCommand cmd = new SqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("@id", pedido.id_produto);
+        cmd.Parameters.AddWithValue("@q", pedido.quantidade);
+        cmd.Parameters.AddWithValue("@t", pedido.total_pago);
+        cmd.Parameters.AddWithValue("@m", metodo);
+        cmd.Parameters.AddWithValue("@p", pedido.parcelas);
+        cmd.Parameters.AddWithValue("@e", endereco);
+
+        conn.Open();
+        novoPedidoId = (int)cmd.ExecuteScalar();
+    }
+
+    return Results.Ok(new { id_pedido = novoPedidoId, mensagem = "Pedido registrado com sucesso." });
+});
+
+// 8. ROTA PARA LISTAR PEDIDOS
+app.MapGet("/api/pedidos", () => {
+    var pedidos = new List<object>();
+
+    using (SqlConnection conn = new SqlConnection(strConexao)) {
+        string sql = @"
+            SELECT p.id_pedido, p.id_produto, pr.nome as produto_nome, p.quantidade, p.total_pago, p.metodo_pagamento, p.parcelas, p.endereco_entrega, p.data_compra
+            FROM Pedidos p
+            LEFT JOIN Produtos pr ON p.id_produto = pr.id_produto
+            ORDER BY p.data_compra DESC";
+
+        SqlCommand cmd = new SqlCommand(sql, conn);
+        conn.Open();
+
+        using (SqlDataReader reader = cmd.ExecuteReader()) {
+            while (reader.Read()) {
+                pedidos.Add(new {
+                    id_pedido = reader.GetInt32(0),
+                    id_produto = reader.GetInt32(1),
+                    produto_nome = reader.IsDBNull(2) ? "Produto desconhecido" : reader.GetString(2),
+                    quantidade = reader.GetInt32(3),
+                    total_pago = reader.GetDecimal(4),
+                    metodo_pagamento = reader.GetString(5),
+                    parcelas = reader.GetInt32(6),
+                    endereco_entrega = reader.GetString(7),
+                    data_compra = reader.GetDateTime(8)
+                });
+            }
+        }
+    }
+
+    return Results.Ok(pedidos);
+});
+
+// 9. Ligar o servidor na porta padrão do seu projeto
 app.Run("http://localhost:5050");

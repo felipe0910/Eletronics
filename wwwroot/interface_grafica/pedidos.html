@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style/style-global.css" />
+    <title>Meus Pedidos | Eletronics</title>
+    <script src="js/acessibilidade.js" defer></script>
+    <script src="js/pedidos.js" defer></script>
+</head>
+<body>
+    <header class="main-header">
+      <a href="index.html" class="logo-header">
+        <img src="img/logo.png" alt="logo - eletronics story" />
+      </a>
+
+      <form action="/search" class="search-form">
+        <label for="search-input" class="sr-only">Pesquisar</label>
+        <input type="search" id="search-input" placeholder="Search" />
+        <button type="submit">🔍</button>
+      </form>
+
+      <nav class="navegação">
+        <ul>
+          <li><a href="produtos.html?categoria=computadores">Computadores</a></li>
+          <li><a href="produtos.html?categoria=notebooks">Notebook</a></li>
+          <li><a href="produtos.html?categoria=smartphones">Smartphones</a></li>
+          <li><a href="produtos.html?categoria=fones">Fones</a></li>
+          <li><a href="pedidos.html">Meus pedidos</a></li>
+        </ul>
+      </nav>
+
+      <div class="user-actions">
+        <a href="#" aria-label="carrinho de compras" class="icon-carrinho">
+          <img src="img/carrinho.png" alt="" />
+        </a>
+        <button type="button" aria-label="conta" class="button-conta">
+          <img src="img/user.png" alt="" />
+        </button>
+      </div>
+    </header>
+
+    <main class="pedidos-main">
+      <section class="pedidos-intro">
+        <h1>Meus Pedidos</h1>
+        <p>Aqui você vê o pedido feito, o valor, quantidade, método de pagamento e a previsão de entrega.</p>
+      </section>
+
+      <section class="pedidos-container">
+        <div class="nenhum-pedido" style="display:none; padding: 24px; background:#f4f4f4; border-radius: 12px;">
+          <h2>Você ainda não tem pedidos registrados.</h2>
+          <p>Escolha um produto e finalize a compra para criar seu primeiro pedido.</p>
+        </div>
+
+        <div class="pedidos-lista"></div>
+      </section>
+    </main>
+
+    <footer>
+        <img src="img/Social Icons.png" alt="">
+        <img src="img/logo.png" alt="">
+        <p>We are a residential interior design firm located in Portland. Our boutique-studio offers more than</p>
+    </footer>
+</body>
+</html>

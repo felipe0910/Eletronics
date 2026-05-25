@@ -1,37 +1,71 @@
 document.addEventListener("DOMContentLoaded", () => {
-    carregarProdutosDaTabela();
+  carregarProdutosDaTabela();
+
+  const searchForm = document.querySelector('.search-form');
+  const searchInput = document.getElementById('search-input');
+  if (searchForm && searchInput) {
+    searchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const term = searchInput.value.trim();
+      const dest = '/interface_grafica/produtos.html' + (term ? `?q=${encodeURIComponent(term)}` : '');
+      window.location.href = dest;
+    });
+  }
 });
 
 async function carregarProdutosDaTabela() {
     const grid = document.querySelector(".produtos-grid");
     if (!grid) return;
 
-    try {
-        // Faz a chamada para a rota que criamos no Program.cs
-        const resposta = await fetch('/api/produtos');
-        const listaCelulares = await resposta.json();
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoria = urlParams.get('categoria');
+    const q = urlParams.get('q');
+    const pageTitle = document.querySelector('.produtos-title');
+    const searchInput = document.getElementById('search-input');
+    if (searchInput && q) searchInput.value = q;
 
-        // Limpa as repetições estáticas antigas do seu HTML
+    const params = [];
+    if (categoria) params.push(`categoria=${encodeURIComponent(categoria)}`);
+    if (q) params.push(`q=${encodeURIComponent(q)}`);
+    const rota = '/api/produtos' + (params.length ? ('?' + params.join('&')) : '');
+
+    try {
+        const resposta = await fetch(rota);
+        const listaProdutos = await resposta.json();
+
         grid.innerHTML = "";
 
-        // Atualiza a contagem automática para 9 celulares no topo da tela
         const contador = document.querySelector(".selecionados strong");
-        if (contador) contador.textContent = listaCelulares.length;
+        if (contador) contador.textContent = listaProdutos.length;
 
-        // Injeta os cards na tela mantendo seu layout e usando as fotos da sua pasta img/
-        listaCelulares.forEach(celular => {
+        const categoriaLabels = {
+          computadores: 'Computadores',
+          notebooks: 'Notebooks',
+          smartphones: 'Smartphones',
+          fones: 'Fones'
+        };
+
+        let categoriaNome;
+        if (q) {
+          categoriaNome = `Resultados para: "${q}"`;
+        } else {
+          categoriaNome = categoria ? (categoriaLabels[categoria.toLowerCase()] || categoria.charAt(0).toUpperCase() + categoria.slice(1)) : 'Todos os produtos';
+        }
+        if (pageTitle) pageTitle.textContent = categoriaNome;
+
+        listaProdutos.forEach(produto => {
             grid.innerHTML += `
               <article class="produto-card" role="listitem">
                 <button class="produto-fav" aria-label="Adicionar aos favoritos"></button>
                 <figure class="produto-figure">
-                  <img src="img/${celular.nome_imagem}" alt="${celular.nome}" class="produto-img" />
+                  <img src="img/${produto.nome_imagem}" alt="${produto.nome}" class="produto-img" />
                 </figure>
                 <div class="produto-info">
-                  <h3 class="produto-titulo">${celular.nome}</h3>
-                  <p class="produto-preco">R$ ${celular.preco.toFixed(2)}</p>
+                  <h3 class="produto-titulo">${produto.nome}</h3>
+                  <p class="produto-preco">R$ ${produto.preco.toFixed(2)}</p>
                 </div>
                 <div class="produto-actions">
-                  <a class="produto-botao" href="compras.html?id=${celular.id_produto}">Comprar</a>
+                  <a class="produto-botao" href="compras.html?id=${produto.id_produto}">Comprar</a>
                 </div>
               </article>
             `;

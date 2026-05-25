@@ -144,36 +144,50 @@ app.MapGet("/api/produtos/{id}", (int id) => {
 });
 
 // 7. ROTA DE PEDIDO: REGISTRAR A COMPRA NO BANCO DE DADOS
-app.MapPost("/api/pedidos", async (HttpRequest request) => {
-    PedidoDto? pedido = await request.ReadFromJsonAsync<PedidoDto>();
+app.MapPost("/api/pedidos", async (PedidoDto? pedido) => {
+    try {
+        if (pedido == null) {
+            Console.Error.WriteLine("Pedido nulo recebido.");
+            return Results.BadRequest(new { mensagem = "Dados do pedido não foram enviados corretamente." });
+        }
 
-    if (pedido == null || pedido.id_produto <= 0 || pedido.quantidade <= 0 || string.IsNullOrWhiteSpace(pedido.endereco_entrega) || string.IsNullOrWhiteSpace(pedido.metodo_pagamento) || pedido.parcelas <= 0) {
-        return Results.BadRequest(new { mensagem = "Dados do pedido incompletos." });
+        if (pedido.id_produto <= 0 || pedido.quantidade <= 0 || string.IsNullOrWhiteSpace(pedido.endereco_entrega) || string.IsNullOrWhiteSpace(pedido.metodo_pagamento) || pedido.parcelas <= 0) {
+            Console.Error.WriteLine($"Dados do pedido incompletos: {System.Text.Json.JsonSerializer.Serialize(pedido)}");
+            return Results.BadRequest(new { mensagem = "Dados do pedido incompletos." });
+        }
+
+        string endereco = pedido.endereco_entrega!;
+        string metodo = pedido.metodo_pagamento!;
+
+        int novoPedidoId;
+        using (SqlConnection conn = new SqlConnection(strConexao)) {
+            string sql = @"
+                INSERT INTO Pedidos (id_produto, quantidade, total_pago, metodo_pagamento, parcelas, endereco_entrega, data_compra)
+                VALUES (@id, @q, @t, @m, @p, @e, GETDATE());
+                SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@id", pedido.id_produto);
+            cmd.Parameters.AddWithValue("@q", pedido.quantidade);
+            cmd.Parameters.AddWithValue("@t", pedido.total_pago);
+            cmd.Parameters.AddWithValue("@m", metodo);
+            cmd.Parameters.AddWithValue("@p", pedido.parcelas);
+            cmd.Parameters.AddWithValue("@e", endereco);
+
+            conn.Open();
+            object? result = cmd.ExecuteScalar();
+            if (result == null || result == DBNull.Value) {
+                throw new InvalidOperationException("Não foi possível obter o ID do pedido após o INSERT.");
+            }
+            novoPedidoId = Convert.ToInt32(result);
+        }
+
+        return Results.Ok(new { id_pedido = novoPedidoId, mensagem = "Pedido registrado com sucesso." });
     }
-
-    string endereco = pedido.endereco_entrega!;
-    string metodo = pedido.metodo_pagamento!;
-
-    int novoPedidoId;
-    using (SqlConnection conn = new SqlConnection(strConexao)) {
-        string sql = @"
-            INSERT INTO Pedidos (id_produto, quantidade, total_pago, metodo_pagamento, parcelas, endereco_entrega, data_compra)
-            VALUES (@id, @q, @t, @m, @p, @e, GETDATE());
-            SELECT CAST(SCOPE_IDENTITY() AS INT);";
-
-        SqlCommand cmd = new SqlCommand(sql, conn);
-        cmd.Parameters.AddWithValue("@id", pedido.id_produto);
-        cmd.Parameters.AddWithValue("@q", pedido.quantidade);
-        cmd.Parameters.AddWithValue("@t", pedido.total_pago);
-        cmd.Parameters.AddWithValue("@m", metodo);
-        cmd.Parameters.AddWithValue("@p", pedido.parcelas);
-        cmd.Parameters.AddWithValue("@e", endereco);
-
-        conn.Open();
-        novoPedidoId = (int)cmd.ExecuteScalar();
+    catch (Exception ex) {
+        Console.Error.WriteLine($"Erro ao registrar pedido: {ex}");
+        return Results.Problem(detail: ex.Message, title: "Erro ao registrar pedido");
     }
-
-    return Results.Ok(new { id_pedido = novoPedidoId, mensagem = "Pedido registrado com sucesso." });
 });
 
 // 8. ROTA PARA LISTAR PEDIDOS

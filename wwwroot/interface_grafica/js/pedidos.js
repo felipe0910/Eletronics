@@ -29,12 +29,36 @@ async function carregarPedidos() {
     }
 }
 
+function calcularPrevisaoEntrega(dataCompra) {
+    const data = new Date(dataCompra);
+    if (isNaN(data.getTime())) return '1 a 2 dias úteis';
+
+    function proximoDiaUtil(d) {
+        const novaData = new Date(d);
+        novaData.setDate(novaData.getDate() + 1);
+        const diaSemana = novaData.getDay();
+        if (diaSemana === 0) {
+            novaData.setDate(novaData.getDate() + 1);
+        } else if (diaSemana === 6) {
+            novaData.setDate(novaData.getDate() + 2);
+        }
+        return novaData;
+    }
+
+    const primeiroDia = proximoDiaUtil(data);
+    const segundoDia = proximoDiaUtil(primeiroDia);
+    const formato = { day: '2-digit', month: '2-digit' };
+
+    return `entre ${primeiroDia.toLocaleDateString('pt-BR', formato)} e ${segundoDia.toLocaleDateString('pt-BR', formato)}`;
+}
+
 function criarCardPedido(pedido, destaque) {
     const data = new Date(pedido.data_compra);
     const dataFormatada = isNaN(data.getTime())
         ? pedido.data_compra
         : data.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
 
+    const previsao = calcularPrevisaoEntrega(pedido.data_compra);
     const caixa = destaque ? 'style="border: 2px solid #001338; background: #f4f9ff;"' : 'style="border: 1px solid #ddd;"';
 
     return `
@@ -51,7 +75,7 @@ function criarCardPedido(pedido, destaque) {
           <p><strong>Parcelas:</strong> ${pedido.parcelas}</p>
           <p><strong>Endereço de entrega:</strong> ${pedido.endereco_entrega}</p>
           <p><strong>Status:</strong> Pedido recebido</p>
-          <p><strong>Previsão:</strong> chegada em 1 a 2 dias</p>
+          <p><strong>Previsão:</strong> ${previsao}</p>
         </div>
         ${destaque ? '<div class="pedido-card__tag" style="margin-top: 12px; padding: 10px; background:#001338; color:#fff; border-radius:8px; display:inline-block;">Pedido recente</div>' : ''}
       </article>

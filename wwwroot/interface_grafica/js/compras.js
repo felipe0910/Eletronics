@@ -1,3 +1,4 @@
+console.log('compras.js loaded');
 document.addEventListener("DOMContentLoaded", () => {
     carregarDetalhesDoProduto();
 });
@@ -5,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 let produtoSelecionado = null;
 
 async function carregarDetalhesDoProduto() {
+    console.log('Iniciando carregamento do produto em compras.js');
     const urlParams = new URLSearchParams(window.location.search);
     const idProduto = urlParams.get('id');
 
@@ -45,10 +47,14 @@ async function carregarDetalhesDoProduto() {
 
 function configurarBotaoComprar(idProduto) {
     const botao = document.querySelector(".comprar__botao");
-    if (!botao) return;
+    if (!botao) {
+        console.error('Botão Comprar não encontrado.');
+        return;
+    }
 
     botao.addEventListener("click", async (evento) => {
         evento.preventDefault();
+        console.log('Botão Comprar clicado', { idProduto, produtoSelecionado });
 
         const enderecoInput = document.querySelector("#txt-endereco");
         const metodoSelecionado = document.querySelector('input[name="metodo-pagamento"]:checked');
@@ -90,19 +96,31 @@ function configurarBotaoComprar(idProduto) {
                 body: JSON.stringify(pedido)
             });
 
-            if (!resposta.ok) {
-                const erro = await resposta.json();
-                throw new Error(erro?.mensagem ?? 'Falha ao registrar o pedido.');
+            let dataResposta;
+            try {
+                dataResposta = await resposta.json();
+            } catch (parseError) {
+                console.error('Falha ao ler JSON da resposta do pedido:', parseError);
+                throw new Error('Resposta inesperada do servidor.');
             }
 
-            const dados = await resposta.json();
-            localStorage.setItem('ultimoPedidoId', dados.id_pedido);
+            console.log('Resposta do servidor:', resposta.status, dataResposta);
+
+            if (!resposta.ok) {
+                throw new Error(dataResposta?.mensagem ?? resposta.statusText ?? 'Falha ao registrar o pedido.');
+            }
+
+            if (!dataResposta || !dataResposta.id_pedido) {
+                throw new Error('ID do pedido não retornado pelo servidor.');
+            }
+
+            localStorage.setItem('ultimoPedidoId', dataResposta.id_pedido);
 
             alert('Pedido registrado com sucesso!');
-            window.location.href = '/interface_grafica/pedidos.html?id=' + dados.id_pedido;
+            window.location.href = '/interface_grafica/pedidos.html?id=' + dataResposta.id_pedido;
         } catch (erro) {
             console.error('Erro ao enviar o pedido:', erro);
-            alert('Não foi possível finalizar a compra. Tente novamente.');
+            alert(erro.message || 'Não foi possível finalizar a compra. Tente novamente.');
         }
     });
 }

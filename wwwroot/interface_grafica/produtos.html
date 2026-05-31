@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="../interface_grafica/style/style-global.css" />
     <link rel="stylesheet" href="../interface_grafica/style/style-produtos.css" />
     <script src="js/acessibilidade.js?v=1" defer></script>
+    <script src="js/search.js" defer></script>
     <script src="js/produtos.js?v=1" defer></script>
-    
+    <script src="../interface_grafica/js/auth.js" defer></script>
 <title>Eletronics</title>
 </head>
 <body>
@@ -17,9 +18,9 @@
         <img src="img/logo.png" alt="logo - eletronics story" />
       </a>
 
-      <form action="/search" class="search-form">
+      <form action="produtos.html" method="get" class="search-form">
         <label for="search-input" class="sr-only">Pesquisar</label>
-        <input type="search" id="search-input" placeholder="Search" />
+        <input type="search" id="search-input" name="q" placeholder="Search" />
         <button type="submit">🔍</button>
       </form>
 
@@ -61,8 +62,11 @@
           </div>
         </div>
 
-        <div class="produtos-grid" role="list">
-            </div>
+        <div class="produtos-grid" role="list"></div>
+        <div class="produtos-grid__empty" style="display:none; text-align:center; padding: 52px 16px; color:#475569;">
+          <strong style="display:block; font-size:1.1rem; margin-bottom:12px;">Produto não encontrado</strong>
+          <p style="margin:0; font-size:0.95rem; color:#6b7280;">Tente outro termo, categoria ou verifique a grafia.</p>
+        </div>
 
       </section>
       </main>

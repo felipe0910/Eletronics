@@ -53,12 +53,30 @@ async function carregarProdutosDaTabela() {
         }
         if (pageTitle) pageTitle.textContent = categoriaNome;
 
+        const mensagemVazia = document.querySelector('.produtos-grid__empty');
+        if (listaProdutos.length === 0) {
+            if (mensagemVazia) {
+                mensagemVazia.style.display = 'block';
+            }
+            if (grid) {
+                grid.style.display = 'none';
+            }
+            return;
+        }
+
+        if (mensagemVazia) {
+            mensagemVazia.style.display = 'none';
+        }
+        if (grid) {
+            grid.style.display = 'grid';
+        }
+
         listaProdutos.forEach(produto => {
             grid.innerHTML += `
               <article class="produto-card" role="listitem">
                 <button class="produto-fav" aria-label="Adicionar aos favoritos"></button>
                 <figure class="produto-figure">
-                  <img src="img/${produto.nome_imagem}" alt="${produto.nome}" class="produto-img" />
+                  <img src="/interface_grafica/img/${encodeURIComponent(produto.nome_imagem)}" alt="${produto.nome}" class="produto-img" />
                 </figure>
                 <div class="produto-info">
                   <h3 class="produto-titulo">${produto.nome}</h3>

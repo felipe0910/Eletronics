@@ -6,17 +6,19 @@
     <link rel="stylesheet" href="style/style-global.css" />
     <title>Meus Pedidos | Eletronics</title>
     <script src="js/acessibilidade.js" defer></script>
+    <script src="/interface_grafica/js/search.js" defer></script>
+    <script src="../interface_grafica/js/auth.js" defer></script>
     <script src="js/pedidos.js" defer></script>
 </head>
 <body>
     <header class="main-header">
-      <a href="index.html" class="logo-header">
+      <a href="home.html" class="logo-header">
         <img src="img/logo.png" alt="logo - eletronics story" />
       </a>
 
-      <form action="/search" class="search-form">
+      <form action="produtos.html" method="get" class="search-form">
         <label for="search-input" class="sr-only">Pesquisar</label>
-        <input type="search" id="search-input" placeholder="Search" />
+        <input type="search" id="search-input" name="q" placeholder="Search" />
         <button type="submit">🔍</button>
       </form>
 
@@ -42,8 +44,8 @@
 
     <main class="pedidos-main">
       <section class="pedidos-intro">
-        <h1>Meus Pedidos</h1>
-        <p>Aqui você vê o pedido feito, o valor, quantidade, método de pagamento e a previsão de entrega.</p>
+        <h1>Meus pedidos</h1>
+        <p>Confira o histórico das compras finalizadas e acompanhe o status de cada entrega.</p>
       </section>
 
       <section class="pedidos-container">

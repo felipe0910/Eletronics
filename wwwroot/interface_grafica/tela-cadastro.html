@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="../interface_grafica/style/style-global.css" />
     <link rel="stylesheet" href="../interface_grafica/style/style-login-cadastro.css">
     <title>Eletronics - Cadastro</title>
+    <script src="/interface_grafica/js/search.js" defer></script>
+    <script src="../interface_grafica/js/auth.js" defer></script>
 </head>
 <body>
 
@@ -14,9 +16,9 @@
             <img src="img/logo.png" alt="logo - eletronics story" />
         </a>
 
-        <form action="/search" class="search-form">
+        <form action="produtos.html" method="get" class="search-form">
             <label for="search-input" class="sr-only">Pesquisar</label>
-            <input type="search" id="search-input" placeholder="Search" />
+            <input type="search" id="search-input" name="q" placeholder="Search" />
             <button type="submit">🔍</button>
         </form>
 

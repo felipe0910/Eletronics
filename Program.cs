@@ -19,10 +19,29 @@ app.UseStaticFiles(new StaticFileOptions {
 // 2. String de Conexão (A mesma que você já usa)
 string strConexao = "Server=DESKTOP;Database=EletronicsStore;User Id=sa;Password=1234;TrustServerCertificate=True;";
 
+// Tentativa de migração automática: garante que a coluna id_usuario exista em Pedidos
+try {
+    using (SqlConnection conn = new SqlConnection(strConexao)) {
+        string sql = @"
+            IF COL_LENGTH('Pedidos', 'id_usuario') IS NULL
+            BEGIN
+                ALTER TABLE Pedidos ADD id_usuario INT NULL;
+                ALTER TABLE Pedidos ADD CONSTRAINT FK_Pedidos_Usuarios FOREIGN KEY (id_usuario) REFERENCES Usuarios(Id);
+            END";
+        SqlCommand cmd = new SqlCommand(sql, conn);
+        conn.Open();
+        cmd.ExecuteNonQuery();
+    }
+}
+catch (Exception ex) {
+    Console.Error.WriteLine($"Erro ao aplicar migração automática: {ex}");
+}
+
 // 3. ROTA DE CADASTRO (Mantida intacta)
 app.MapPost("/cadastrar-usuario", async (HttpContext contexto) => {
     var form = await contexto.Request.ReadFormAsync();
     
+
     using (SqlConnection conn = new SqlConnection(strConexao)) {
         string sql = "INSERT INTO Usuarios (NomeCompleto, Email, Senha) VALUES (@n, @e, @s)";
         SqlCommand cmd = new SqlCommand(sql, conn);
@@ -36,28 +55,46 @@ app.MapPost("/cadastrar-usuario", async (HttpContext contexto) => {
     return Results.Redirect("/interface_grafica/tela-login.html");
 });
 
-// 4. ROTA DE LOGIN (Mantida intacta)
+// 4. ROTA DE LOGIN - Retorna JSON com dados do usuário (frontend salva em localStorage)
 app.MapPost("/login", async (HttpContext contexto) => {
     var form = await contexto.Request.ReadFormAsync();
 
     string email = form["email"].ToString();
     string senha = form["senha"].ToString();
-   
+
     using (SqlConnection conn = new SqlConnection(strConexao)) {
-        string sql = "SELECT COUNT(*) FROM Usuarios WHERE Email = @e AND Senha = @s";
+        string sql = "SELECT Id, NomeCompleto, Email FROM Usuarios WHERE Email = @e AND Senha = @s";
         SqlCommand cmd = new SqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("@e", email);
         cmd.Parameters.AddWithValue("@s", senha);
-        
-        conn.Open();
-        int existe = (int)cmd.ExecuteScalar();
 
-        if (existe > 0) {
-            return Results.Redirect("/interface_grafica/home.html");
-        } else {
-            return Results.Redirect("/interface_grafica/tela-login.html?erro=1");
+        conn.Open();
+        using (SqlDataReader reader = cmd.ExecuteReader()) {
+            if (reader.Read()) {
+                int idUsuario = reader.GetInt32(0);
+                string nome = reader.IsDBNull(1) ? "" : reader.GetString(1);
+                string emailUsuario = reader.GetString(2);
+
+                // Retornar JSON com dados do usuário (frontend salva em localStorage)
+                return Results.Ok(new { 
+                    id_usuario = idUsuario, 
+                    nome = nome, 
+                    email = emailUsuario 
+                });
+            }
         }
     }
+
+    return Results.BadRequest(new { erro = "Email ou senha inválidos." });
+});
+
+
+// Endpoint para obter info do usuário logado - NÃO NECESSÁRIO COM localStorage
+// (Frontend gerencia estado localmente)
+
+// Logout simples - apenas retorna OK (frontend limpa localStorage)
+app.MapPost("/logout", (HttpContext contexto) => {
+    return Results.Ok(new { mensagem = "Desconectado." });
 });
 
 // 5. ROTA GERAL: BUSCAR PRODUTOS, COM FILTRO POR CATEGORIA
@@ -151,6 +188,11 @@ app.MapPost("/api/pedidos", async (PedidoDto? pedido) => {
             return Results.BadRequest(new { mensagem = "Dados do pedido não foram enviados corretamente." });
         }
 
+        // Validar id_usuario foi enviado
+        if (pedido.id_usuario <= 0) {
+            return Results.BadRequest(new { mensagem = "Usuário não autenticado." });
+        }
+
         if (pedido.id_produto <= 0 || pedido.quantidade <= 0 || string.IsNullOrWhiteSpace(pedido.endereco_entrega) || string.IsNullOrWhiteSpace(pedido.metodo_pagamento) || pedido.parcelas <= 0) {
             Console.Error.WriteLine($"Dados do pedido incompletos: {System.Text.Json.JsonSerializer.Serialize(pedido)}");
             return Results.BadRequest(new { mensagem = "Dados do pedido incompletos." });
@@ -162,11 +204,12 @@ app.MapPost("/api/pedidos", async (PedidoDto? pedido) => {
         int novoPedidoId;
         using (SqlConnection conn = new SqlConnection(strConexao)) {
             string sql = @"
-                INSERT INTO Pedidos (id_produto, quantidade, total_pago, metodo_pagamento, parcelas, endereco_entrega, data_compra)
-                VALUES (@id, @q, @t, @m, @p, @e, GETDATE());
+                INSERT INTO Pedidos (id_usuario, id_produto, quantidade, total_pago, metodo_pagamento, parcelas, endereco_entrega, data_compra)
+                VALUES (@usuarioId, @id, @q, @t, @m, @p, @e, GETDATE());
                 SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
             SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@usuarioId", pedido.id_usuario);
             cmd.Parameters.AddWithValue("@id", pedido.id_produto);
             cmd.Parameters.AddWithValue("@q", pedido.quantidade);
             cmd.Parameters.AddWithValue("@t", pedido.total_pago);
@@ -190,18 +233,26 @@ app.MapPost("/api/pedidos", async (PedidoDto? pedido) => {
     }
 });
 
-// 8. ROTA PARA LISTAR PEDIDOS
-app.MapGet("/api/pedidos", () => {
+// 8. ROTA PARA LISTAR PEDIDOS - Recebe id_usuario como query parameter
+app.MapGet("/api/pedidos", (HttpRequest request) => {
+    // Lê id_usuario do query parameter
+    string? usuarioIdStr = request.Query["id_usuario"].ToString();
+    if (!int.TryParse(usuarioIdStr, out var usuarioId) || usuarioId <= 0) {
+        return Results.BadRequest(new { erro = "Usuário não autenticado." });
+    }
+
     var pedidos = new List<object>();
 
     using (SqlConnection conn = new SqlConnection(strConexao)) {
         string sql = @"
-            SELECT p.id_pedido, p.id_produto, pr.nome as produto_nome, p.quantidade, p.total_pago, p.metodo_pagamento, p.parcelas, p.endereco_entrega, p.data_compra
+            SELECT p.id_pedido, p.id_produto, pr.nome as produto_nome, pr.nome_imagem as produto_imagem, p.quantidade, p.total_pago, p.metodo_pagamento, p.parcelas, p.endereco_entrega, p.data_compra
             FROM Pedidos p
             LEFT JOIN Produtos pr ON p.id_produto = pr.id_produto
+            WHERE p.id_usuario = @usuarioId
             ORDER BY p.data_compra DESC";
 
         SqlCommand cmd = new SqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("@usuarioId", usuarioId);
         conn.Open();
 
         using (SqlDataReader reader = cmd.ExecuteReader()) {
@@ -210,12 +261,13 @@ app.MapGet("/api/pedidos", () => {
                     id_pedido = reader.GetInt32(0),
                     id_produto = reader.GetInt32(1),
                     produto_nome = reader.IsDBNull(2) ? "Produto desconhecido" : reader.GetString(2),
-                    quantidade = reader.GetInt32(3),
-                    total_pago = reader.GetDecimal(4),
-                    metodo_pagamento = reader.GetString(5),
-                    parcelas = reader.GetInt32(6),
-                    endereco_entrega = reader.GetString(7),
-                    data_compra = reader.GetDateTime(8)
+                    produto_imagem = reader.IsDBNull(3) ? null : reader.GetString(3),
+                    quantidade = reader.GetInt32(4),
+                    total_pago = reader.GetDecimal(5),
+                    metodo_pagamento = reader.GetString(6),
+                    parcelas = reader.GetInt32(7),
+                    endereco_entrega = reader.GetString(8),
+                    data_compra = reader.GetDateTime(9)
                 });
             }
         }

@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="../interface_grafica/style/style-land-page.css">
     <link rel="icon" type="image/png" href="../interface_grafica/img/Logo eletronics.png">
      <script src="../interface_grafica/js/acessibilidade.js" defer></script>
+    <script src="../interface_grafica/js/auth.js" defer></script>
+    <script src="/interface_grafica/js/search.js" defer></script>
     <title>Eletronics</title>
   </head>
 
@@ -16,9 +18,9 @@
         <img src="img/logo.png" alt="logo - eletronics story" />
       </a>
 
-      <form action="/search" class="search-form">
+      <form action="produtos.html" method="get" class="search-form">
         <label for="search-input" class="sr-only">Pesquisar</label>
-        <input type="search" id="search-input" placeholder="Search" />
+        <input type="search" id="search-input" name="q" placeholder="Search" />
         <button type="submit">🔍</button>
       </form>
 
@@ -57,7 +59,7 @@
     <h2>Smartphones</h2>
     <p>aproveite as equipamentos na eletronics</p>
     
-  <a href="../interface_grafica/grade-smartphone.html" class="btn-detalhes">detalhes</a>
+  <a href="produtos.html?categoria=smartphones" class="btn-detalhes">detalhes</a>
   </div>
 
   <img  src="img/Iphone Image.png" alt="Iphone" class="banner1-img">
@@ -76,7 +78,7 @@
   <div class="pc-text">
     <h3>Computadores</h3>
     <p>Incredibly powerful CPUs, GPUs, and an SSD with integrated I/O will redefine your experience.</p>
-    <a href="#" class="btn-pc">detalhes</a>
+    <a href="produtos.html?categoria=computadores" class="btn-pc">detalhes</a>
   </div>
 </section>
 
@@ -90,7 +92,7 @@
   <div class="fone-text">
     <h4>Fones</h4>
     <p>Computational audio. Listen, it's powerful.</p>
-    <a href="#" class="btn-fone">detalhes</a>
+    <a href="produtos.html?categoria=fones" class="btn-fone">detalhes</a>
   </div>
 </section>
 
@@ -102,7 +104,7 @@
     <h5>Notebook</h5>
     <p>The new 15‑inch MacBook Air makes room for more of what you love with a spacious Liquid Retina display.</p>
     
-  <a href="#" class="btn-note">detalhes</a>
+  <a href="produtos.html?categoria=notebooks" class="btn-note">detalhes</a>
   <img src="img/MacBook Pro 14.png" alt=" notebook" class="note-img">
   
 </div>

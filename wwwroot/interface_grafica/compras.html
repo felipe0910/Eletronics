@@ -6,7 +6,9 @@
       <link rel="stylesheet" href="style/style-global.css" />
       <link rel="stylesheet" href="style/compras.css" />
       <script src="/interface_grafica/js/acessibilidade.js?v=2" defer></script>
+      <script src="/interface_grafica/js/search.js" defer></script>
       <script src="/interface_grafica/js/compras.js?v=2" defer></script>
+      <script src="/interface_grafica/js/auth.js" defer></script>
       <title>Eletronics</title>
   </head>
   <body>
@@ -16,9 +18,9 @@
           <img src="img/logo.png" alt="logo - eletronics story" />
         </a>
 
-        <form action="/search" class="search-form">
-          <label for="search-input" class="sr-only">Pesquisar</label>
-          <input type="search" id="search-input" placeholder="Search" />
+<form action="produtos.html" method="get" class="search-form">
+        <label for="search-input" class="sr-only">Pesquisar</label>
+        <input type="search" id="search-input" name="q" placeholder="Search" />
           <button type="submit">🔍</button>
         </form>
 
@@ -52,6 +54,21 @@
               <div class="comprar__cabecalho">
                 <h1 class="comprar__titulo"></h1>
                 <p class="comprar__preco"></p>
+              </div>
+
+              <div class="comprar__quantidade">
+                <div class="quantidade-bloco">
+                  <span>Quantidade</span>
+                  <div class="quantidade-controle">
+                    <button type="button" class="quantidade-btn quantidade-btn--menos">−</button>
+                    <span class="quantidade-valor">1</span>
+                    <button type="button" class="quantidade-btn quantidade-btn--mais">+</button>
+                  </div>
+                </div>
+                <div class="comprar__subtotal">
+                  <span>Total</span>
+                  <strong class="comprar__total">R$ 0,00</strong>
+                </div>
               </div>
 
               <div class="comprar__descricao">

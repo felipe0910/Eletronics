@@ -1,8 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif; /* Para ficar parecido com a imagem */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f7f9fc;
+  color: #0f172a;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
 .main-header {
@@ -89,38 +109,94 @@
 .user-actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
+}
+
+.icon-carrinho,
+.button-conta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(0, 19, 56, 0.08);
+  border: 1px solid rgba(0, 19, 56, 0.12);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 .icon-carrinho img,
 .button-conta img {
-  width: 24px; /* Tamanho padrão de ícones de interface */
+  width: 22px;
   height: auto;
+}
+
+.button-conta {
+  min-width: 44px;
+  width: auto;
+  padding: 0 12px;
+  border: 1px solid rgba(0, 19, 56, 0.12);
+  background: rgba(0, 19, 56, 0.08);
+  color: #0f172a;
+}
+
+.button-conta i {
+  font-size: 1.2rem;
+  color: #0f172a;
+}
+
+.icon-carrinho:hover,
+.button-conta:hover,
+.btn-logout:hover {
+  transform: translateY(-1px);
+  background: rgba(0, 19, 56, 0.14);
 }
 
 .logo-header:hover img {
   transform: scale(1.05); /* Um aumento bem leve para a logo não exagerar */
 }
 
-/* Efeito no Carrinho e no Usuário */
-.icon-carrinho:hover,
-.button-conta:hover {
-  transform: scale(1.2); /* Um pouco mais de destaque para os ícones */
-}
-
-.button-conta {
-  background: none;
-  border: none;
-  cursor: pointer;
+.user-menu {
   display: flex;
   align-items: center;
-  
-  
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
-.button-conta:hover {
-  color: #000; /* Destaque ao passar o mouse */
-  transform: scale(1.1);
+.user-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #0f172a;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.user-name i {
+  color: #0f172a;
+  font-size: 1.15rem;
+}
+
+.btn-logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: none;
+  background: #001338;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.btn-logout i {
+  font-size: 1rem;
 }
 
 /* Classe utilitária para acessibilidade */
@@ -219,3 +295,264 @@ footer p {
     margin: 0;
 }
 
+/* --- ADICIONE OU SUBSTITUA NO SEU ARQUIVO CSS --- */
+
+/* --- CONTAINER PRINCIPAL DA PÁGINA --- */
+.pedidos-main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* --- ADICIONE OU SUBSTITUA NO SEU ARQUIVO CSS --- */
+
+/* --- ESTILIZAÇÃO COMPLETA DO TÍTULO E CONTAINER --- */
+
+.pedidos-main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 24px;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.pedidos-intro {
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0; /* Linha sutil para separar o topo dos cards */
+}
+
+.pedidos-intro h1 {
+    font-size: 2.25rem;
+    color: #001338; /* O mesmo azul escuro padrão do seu projeto */
+    margin: 0 0 8px 0;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.pedidos-intro p {
+    color: #64748b; /* Um cinza elegante e suave */
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.7;
+    max-width: 760px;
+}
+
+.pedidos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.pedido-card {
+    border-radius: 20px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 24px;
+    padding: 0;
+    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: #ffffff;
+}
+
+.pedido-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 55px rgba(15, 23, 42, 0.12);
+}
+
+.pedido-card--recente {
+    border: 1px solid #c7d2fe;
+}
+
+.pedido-card__media {
+    background: linear-gradient(180deg, #eef2ff 0%, #ffffff 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    padding: 20px;
+}
+
+.pedido-card__media img {
+    width: 100%;
+    max-height: 220px;
+    object-fit: contain;
+    border-radius: 18px;
+}
+
+.pedido-card__placeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    min-height: 160px;
+    width: 100%;
+    color: #334155;
+    text-align: center;
+}
+
+.pedido-card__placeholder span {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #64748b;
+}
+
+.pedido-card__placeholder strong {
+    font-size: 1.05rem;
+    line-height: 1.4;
+}
+
+.pedido-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+}
+
+.pedido-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.pedido-card__header strong {
+    display: block;
+    font-size: 1.45rem;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.pedido-card__header p {
+    margin: 0;
+    color: #52637a;
+    font-size: 0.95rem;
+}
+
+.pedido-card__icon,
+.pedido-card__date i {
+    color: #0f172a;
+    opacity: 0.88;
+    font-size: 1rem;
+}
+
+.pedido-card__item span {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+}
+
+.pedido-card__date {
+    color: #475569;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    background: #f8fafc;
+    padding: 12px 16px;
+    border-radius: 16px;
+    min-width: 80px;
+    text-align: center;
+    height: fit-content;
+}
+
+.pedido-card__body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.pedido-card__item {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pedido-card__item span {
+    color: #64748b;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.pedido-card__item strong {
+    color: #0f172a;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.pedido-card__item--full {
+    grid-column: 1 / -1;
+}
+
+.pedido-card__footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.pedido-card__status,
+.pedido-card__footer span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    padding: 12px 16px;
+    border-radius: 16px;
+}
+
+.pedido-card__status {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #d1fae5;
+}
+
+.pedido-card__footer span:not(.pedido-card__status) {
+    background: #f8fafc;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.pedido-card__tag {
+    margin-left: auto;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 10px 16px;
+    background: #312e81;
+    color: #ffffff;
+    border-radius: 999px;
+}
+
+@media (max-width: 900px) {
+    .pedido-card {
+        grid-template-columns: 1fr;
+    }
+
+    .pedido-card__media {
+        min-height: 200px;
+    }
+
+    .pedido-card__body {
+        grid-template-columns: 1fr;
+    }
+}
+
+.pedidos-lista {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+}

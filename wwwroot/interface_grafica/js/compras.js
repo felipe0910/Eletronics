@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 let produtoSelecionado = null;
+let quantidadeAtual = 1;
 
 async function carregarDetalhesDoProduto() {
     console.log('Iniciando carregamento do produto em compras.js');
@@ -32,9 +33,12 @@ async function carregarDetalhesDoProduto() {
         if (descricao) descricao.textContent = produtoSelecionado.descricao_comercial;
         
         if (imagem) {
-            imagem.src = `img/${produtoSelecionado.nome_imagem}`;
+            imagem.src = `/interface_grafica/img/${encodeURIComponent(produtoSelecionado.nome_imagem)}`;
             imagem.alt = produtoSelecionado.nome;
         }
+
+        atualizarTotal();
+        configurarControlesQuantidade();
 
         console.log(`🚀 Dados do produto ${idProduto} renderizados com sucesso!`);
 
@@ -43,6 +47,39 @@ async function carregarDetalhesDoProduto() {
     } catch (erro) {
         console.error("Erro ao alimentar a página de compras:", erro);
     }
+}
+
+function configurarControlesQuantidade() {
+    const botaoMais = document.querySelector('.quantidade-btn--mais');
+    const botaoMenos = document.querySelector('.quantidade-btn--menos');
+    const quantidadeValor = document.querySelector('.quantidade-valor');
+
+    if (!botaoMais || !botaoMenos || !quantidadeValor) return;
+
+    quantidadeValor.textContent = String(quantidadeAtual);
+
+    botaoMais.addEventListener('click', () => {
+        quantidadeAtual += 1;
+        quantidadeValor.textContent = String(quantidadeAtual);
+        atualizarTotal();
+    });
+
+    botaoMenos.addEventListener('click', () => {
+        if (quantidadeAtual <= 1) return;
+        quantidadeAtual -= 1;
+        quantidadeValor.textContent = String(quantidadeAtual);
+        atualizarTotal();
+    });
+}
+
+function atualizarTotal() {
+    const totalElemento = document.querySelector('.comprar__total');
+    const precoElemento = document.querySelector('.comprar__preco');
+    if (!totalElemento || !precoElemento || !produtoSelecionado) return;
+
+    const total = produtoSelecionado.preco * quantidadeAtual;
+    totalElemento.textContent = `R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+    precoElemento.textContent = `R$ ${produtoSelecionado.preco.toFixed(2)} cada`;
 }
 
 function configurarBotaoComprar(idProduto) {
@@ -55,6 +92,17 @@ function configurarBotaoComprar(idProduto) {
     botao.addEventListener("click", async (evento) => {
         evento.preventDefault();
         console.log('Botão Comprar clicado', { idProduto, produtoSelecionado });
+
+        // Verificar se o usuário está logado via localStorage
+        if (!auth.estaLogado()) {
+            // Redirecionar para login com returnUrl
+            const returnUrl = window.location.pathname + window.location.search;
+            window.location.href = '/interface_grafica/tela-login.html?returnUrl=' + encodeURIComponent(returnUrl);
+            return;
+        }
+
+        const usuario = auth.obterUsuario();
+        const idUsuario = usuario.id_usuario;
 
         const enderecoInput = document.querySelector("#txt-endereco");
         const metodoSelecionado = document.querySelector('input[name="metodo-pagamento"]:checked');
@@ -79,9 +127,10 @@ function configurarBotaoComprar(idProduto) {
         }
 
         const pedido = {
+            id_usuario: idUsuario,
             id_produto: Number(idProduto),
-            quantidade: 1,
-            total_pago: produtoSelecionado.preco,
+            quantidade: quantidadeAtual,
+            total_pago: Number((produtoSelecionado.preco * quantidadeAtual).toFixed(2)),
             metodo_pagamento: metodo,
             parcelas: 1,
             endereco_entrega: endereco

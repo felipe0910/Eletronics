@@ -1,4 +1,12 @@
-document.addEventListener("DOMContentLoaded", carregarPedidos);
+document.addEventListener("DOMContentLoaded", () => {
+    // Verificar se usuário está logado
+    if (!auth.estaLogado()) {
+        window.location.href = '/interface_grafica/tela-login.html?returnUrl=' + encodeURIComponent(window.location.pathname);
+        return;
+    }
+
+    carregarPedidos();
+});
 
 async function carregarPedidos() {
     const pedidosLista = document.querySelector(".pedidos-lista");
@@ -9,23 +17,50 @@ async function carregarPedidos() {
     if (!pedidosLista || !mensagemVazia) return;
 
     try {
-        const resposta = await fetch('/api/pedidos');
-        if (!resposta.ok) throw new Error('Não foi possível carregar os pedidos.');
+      // Garantir que o objeto `auth` esteja disponível (carregado pelo auth.js)
+      if (typeof auth === 'undefined') {
+        throw new Error('Módulo de autenticação indisponível');
+      }
 
-        const pedidos = await resposta.json();
+      const usuario = auth.obterUsuario();
+      if (!usuario || !usuario.id_usuario) {
+        throw new Error('Usuário não autenticado');
+      }
 
-        if (!Array.isArray(pedidos) || pedidos.length === 0) {
-            mensagemVazia.style.display = 'block';
-            pedidosLista.innerHTML = '';
-            return;
-        }
+      const resposta = await fetch(`/api/pedidos?id_usuario=${usuario.id_usuario}`);
+      if (!resposta.ok) {
+        throw new Error(`Erro na requisição: ${resposta.status}`);
+      }
 
-        mensagemVazia.style.display = 'none';
-        pedidosLista.innerHTML = pedidos.map((pedido) => criarCardPedido(pedido, pedido.id_pedido === idPedidoRecente)).join('');
-    } catch (erro) {
-        console.error('Erro ao carregar pedidos:', erro);
+      const pedidos = await resposta.json();
+
+      if (!Array.isArray(pedidos) || pedidos.length === 0) {
         mensagemVazia.style.display = 'block';
-        pedidosLista.innerHTML = '<p>Erro ao carregar pedidos. Tente novamente mais tarde.</p>';
+        pedidosLista.innerHTML = '';
+        return;
+      }
+
+      // Se algum pedido não trouxer imagem do produto, buscar pelo produto para tentar preencher
+      await Promise.all(pedidos.map(async (pedido) => {
+        if (!pedido.produto_imagem && pedido.id_produto) {
+          try {
+            const produtoResp = await fetch(`/api/produtos/${pedido.id_produto}`);
+            if (produtoResp.ok) {
+              const produtoDados = await produtoResp.json();
+              pedido.produto_imagem = produtoDados?.nome_imagem ?? null;
+            }
+          } catch (fetchErro) {
+            console.warn('Não foi possível buscar imagem do produto para pedido', pedido.id_pedido, fetchErro);
+          }
+        }
+      }));
+
+      mensagemVazia.style.display = 'none';
+      pedidosLista.innerHTML = pedidos.map((pedido) => criarCardPedido(pedido, pedido.id_pedido === idPedidoRecente)).join('');
+    } catch (erro) {
+      console.error('Erro ao carregar pedidos:', erro);
+      mensagemVazia.style.display = 'block';
+      pedidosLista.innerHTML = '<p>Erro ao carregar pedidos. Tente novamente mais tarde.</p>';
     }
 }
 
@@ -59,25 +94,55 @@ function criarCardPedido(pedido, destaque) {
         : data.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
 
     const previsao = calcularPrevisaoEntrega(pedido.data_compra);
-    const caixa = destaque ? 'style="border: 2px solid #001338; background: #f4f9ff;"' : 'style="border: 1px solid #ddd;"';
+    const imagemProduto = pedido.produto_imagem
+        ? `/interface_grafica/img/${encodeURIComponent(pedido.produto_imagem)}`
+        : '/interface_grafica/img/pc.png';
+
+    const mediaHtml = `<img src="${imagemProduto}" alt="Imagem do ${pedido.produto_nome}" onerror="this.onerror=null; this.src='/interface_grafica/img/pc.png'" />`;
 
     return `
-      <article class="pedido-card" ${caixa}>
-        <header class="pedido-card__header">
-          <strong>Pedido #${pedido.id_pedido}</strong>
-          <span>${dataFormatada}</span>
-        </header>
-        <div class="pedido-card__body">
-          <p><strong>Produto:</strong> ${pedido.produto_nome ?? 'Produto desconhecido'}</p>
-          <p><strong>Quantidade:</strong> ${pedido.quantidade}</p>
-          <p><strong>Valor total:</strong> R$ ${Number(pedido.total_pago).toFixed(2)}</p>
-          <p><strong>Método de pagamento:</strong> ${pedido.metodo_pagamento}</p>
-          <p><strong>Parcelas:</strong> ${pedido.parcelas}</p>
-          <p><strong>Endereço de entrega:</strong> ${pedido.endereco_entrega}</p>
-          <p><strong>Status:</strong> Pedido recebido</p>
-          <p><strong>Previsão:</strong> ${previsao}</p>
+      <article class="pedido-card ${destaque ? 'pedido-card--recente' : ''}">
+        <div class="pedido-card__media">
+          ${mediaHtml}
         </div>
-        ${destaque ? '<div class="pedido-card__tag" style="margin-top: 12px; padding: 10px; background:#001338; color:#fff; border-radius:8px; display:inline-block;">Pedido recente</div>' : ''}
+
+        <div class="pedido-card__content">
+          <header class="pedido-card__header">
+            <div>
+              <strong>Pedido #${pedido.id_pedido}</strong>
+              <span class="pedido-card__date"><i class="bi bi-calendar3"></i> ${dataFormatada}</span>
+            </div>
+          </header>
+
+          <div class="pedido-card__body">
+            <div class="pedido-card__item">
+              <span><i class="bi bi-box-seam pedido-card__icon"></i> Produto</span>
+              <strong>${pedido.produto_nome ?? 'Produto desconhecido'}</strong>
+            </div>
+            <div class="pedido-card__item">
+              <span><i class="bi bi-basket pedido-card__icon"></i> Quantidade</span>
+              <strong>${pedido.quantidade} un.</strong>
+            </div>
+            <div class="pedido-card__item">
+              <span><i class="bi bi-currency-dollar pedido-card__icon"></i> Valor total</span>
+              <strong>R$ ${Number(pedido.total_pago).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</strong>
+            </div>
+            <div class="pedido-card__item">
+              <span><i class="bi bi-credit-card-2-front pedido-card__icon"></i> Pagamento</span>
+              <strong>${pedido.metodo_pagamento.toUpperCase()} (${pedido.parcelas}x)</strong>
+            </div>
+            <div class="pedido-card__item pedido-card__item--full">
+              <span><i class="bi bi-geo-alt pedido-card__icon"></i> Entrega</span>
+              <strong>${pedido.endereco_entrega}</strong>
+            </div>
+          </div>
+
+          <div class="pedido-card__footer">
+            <span class="pedido-card__status">Pedido recebido</span>
+            <span>${previsao}</span>
+            ${destaque ? '<span class="pedido-card__tag">Pedido recente</span>' : ''}
+          </div>
+        </div>
       </article>
     `;
 }

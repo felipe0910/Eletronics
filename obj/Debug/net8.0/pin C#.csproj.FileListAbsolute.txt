@@ -79,3 +79,8 @@ C:\Eletronics\obj\Debug\net8.0\pin C#.csproj.Up2Date
 C:\Eletronics\obj\Debug\net8.0\pin C#.dll
 C:\Eletronics\obj\Debug\net8.0\refint\pin C#.dll
 C:\Eletronics\obj\Debug\net8.0\pin C#.pdb
+C:\Eletronics\bin\Debug\net8.0\pin C#.deps.json
+C:\Eletronics\bin\Debug\net8.0\pin C#.runtimeconfig.json
+C:\Eletronics\bin\Debug\net8.0\pin C#.pdb
+C:\Eletronics\obj\Debug\net8.0\pin C#.genruntimeconfig.cache
+C:\Eletronics\obj\Debug\net8.0\ref\pin C#.dll

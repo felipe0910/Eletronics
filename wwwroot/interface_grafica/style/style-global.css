@@ -556,3 +556,163 @@ footer p {
     margin: 0 auto;
     padding: 0 24px;
 }
+
+/* ===== Avatar LIBRAS (fallback UI + animations) ===== */
+.avatar-container {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 76px;
+  height: 76px;
+  z-index: 1200;
+}
+
+.avatar-button {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(180deg,#fff 0%, #f1f5f9 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.2);
+  border: 2px solid rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.avatar-button img { width: 48px; height: 48px; border-radius: 50%; }
+
+.avatar-button:active { transform: scale(0.98); }
+
+.avatar-button.signing { box-shadow: 0 12px 40px rgba(2,6,23,0.28); }
+
+/* Simple hand-signing animation (decorative fallback) */
+@keyframes avatar-sign {
+  0% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-6px) rotate(-6deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(-6px) rotate(6deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+.avatar-button.signing img { animation: avatar-sign 0.9s ease-in-out infinite; }
+
+.avatar-tooltip {
+  position: absolute;
+  right: 90px;
+  bottom: 30px;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  white-space: nowrap;
+  display: none;
+}
+
+.avatar-container.show-tooltip .avatar-tooltip { display: block; }
+
+/* Avatar modal */
+.avatar-modal {
+  position: fixed;
+  right: 18px;
+  bottom: 110px;
+  width: 340px;
+  max-width: calc(100% - 36px);
+  display: none;
+  z-index: 1400;
+}
+
+.avatar-modal.open { display: block; }
+
+.avatar-modal__dialog {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(2,6,23,0.2);
+  padding: 18px;
+  color: #0f172a;
+}
+
+.avatar-modal__close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.avatar-modal__actions,
+.avatar-modal__navigation,
+.avatar-modal__controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.avatar-modal__actions button,
+.avatar-modal__navigation button,
+.avatar-modal__controls button {
+  flex: 1 1 auto;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e6eef8;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.avatar-modal__actions button:hover,
+.avatar-modal__navigation button:hover,
+.avatar-modal__controls button:hover {
+  background: #eef4fb;
+  transform: translateY(-1px);
+}
+
+.avatar-modal__preview {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 14px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  min-height: 120px;
+}
+
+.avatar-modal__sign-card {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 14px;
+  align-items: center;
+}
+
+.avatar-modal__sign-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: #e0e7ff;
+  font-size: 28px;
+  animation: avatar-sign 1.2s ease-in-out infinite;
+}
+
+.avatar-modal__sign-content p {
+  margin: 0;
+  color: #0f172a;
+  line-height: 1.5;
+}
+
+.avatar-modal__sign-content p:first-child {
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .avatar-container { right: 12px; bottom: 12px; }
+  .avatar-modal { right: 12px; bottom: 96px; width: 92%; }
+  .avatar-modal__sign-card {
+    grid-template-columns: 1fr;
+  }
+}

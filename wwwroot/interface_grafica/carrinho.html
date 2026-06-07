@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../interface_grafica/style/style-global.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../interface_grafica/style/style-carrinho.css" />
+    <script src="/interface_grafica/js/acessibilidade.js" defer></script>
+    <script src="/interface_grafica/js/search.js" defer></script>
+    <script src="/interface_grafica/js/cart.js" defer></script>
+    <script src="/interface_grafica/js/carrinho-page.js" defer></script>
+    <script src="/interface_grafica/js/auth.js" defer></script>
+    <script src="/interface_grafica/js/avatar.js" defer></script>
+
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+    <title>Carrinho - Eletronics</title>
+</head>
+<body>
+
+    <header class="main-header">
+        <a href="index.html" class="logo-header">
+            <img src="img/logo.png" alt="logo - eletronics story" />
+        </a>
+
+        <form action="produtos.html" method="get" class="search-form">
+            <label for="search-input" class="sr-only">Pesquisar</label>
+            <input type="search" id="search-input" name="q" placeholder="Search" />
+            <button type="submit">🔍</button>
+        </form>
+
+        <nav class="navegação">
+            <ul>
+                <li><a href="produtos.html?categoria=computadores">Computadores</a></li>
+                <li><a href="produtos.html?categoria=notebooks">Notebook</a></li>
+                <li><a href="produtos.html?categoria=smartphones">Smartphones</a></li>
+                <li><a href="produtos.html?categoria=fones">Fones</a></li>
+                <li><a href="pedidos.html">Meus pedidos</a></li>
+            </ul>
+        </nav>
+
+        <div class="user-actions"></div>
+    </header>
+
+    <main class="carrinho-container">
+        <h1 class="carrinho-titulo">Shopping Cart</h1>
+
+        <div class="carrinho-layout">
+            <!-- Itens do carrinho -->
+            <section class="carrinho-itens">
+                <div class="carrinho-itens-header">
+                    <h2>Shopping Cart</h2>
+                    <span class="carrinho-contador" id="carrinho-contador">0 itens</span>
+                </div>
+
+                <div class="carrinho-lista" id="carrinho-lista">
+                    <!-- Itens serão preenchidos via JavaScript -->
+                </div>
+
+                <div class="carrinho-vazio" id="carrinho-vazio" style="display: none;">
+                    <p>Seu carrinho está vazio</p>
+                    <a href="produtos.html" class="btn-voltar-compras">Voltar às compras</a>
+                </div>
+            </section>
+
+            <!-- Resumo do pedido -->
+            <aside class="carrinho-resumo">
+                <div class="resumo-header">
+                    <h2>Produtos</h2>
+                </div>
+
+                <div class="resumo-lista" id="resumo-lista">
+                    <!-- Lista resumida preenchida por JS -->
+                </div>
+
+                <div class="resumo-itens">
+                    <div class="resumo-item">
+                        <span>Subtotal:</span>
+                        <span class="resumo-valor" id="resumo-subtotal">R$ 0,00</span>
+                    </div>
+                    <div class="resumo-item">
+                        <span>Frete:</span>
+                        <span class="resumo-valor" id="resumo-frete">Grátis</span>
+                    </div>
+                    <div class="resumo-item resumo-total">
+                        <span>Total:</span>
+                        <span class="resumo-valor resumo-total-valor" id="resumo-total">R$ 0,00</span>
+                    </div>
+                </div>
+
+                <div class="resumo-actions">
+                    <button class="btn-checkout" id="btn-checkout">Comprar</button>
+                    <button class="btn-limpar-carrinho" id="btn-limpar-carrinho">Limpar</button>
+                    <a href="produtos.html" class="btn-continuar-compras">Sair</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <img src="img/Social Icons.png" alt="">
+        <img src="img/logo.png" alt="">
+        <p>We are a residential interior design firm located in Portland. Our boutique-studio offers more than</p>
+    </footer>
+
+    <!-- Modal de confirmação para remover item -->
+    <div class="modal" id="modal-confirmar" style="display: none;">
+        <div class="modal-content">
+            <h3>Remover do carrinho?</h3>
+            <p id="modal-mensagem"></p>
+            <div class="modal-botoes">
+                <button class="btn-confirmar" id="btn-confirmar-remove">Remover</button>
+                <button class="btn-cancelar" id="btn-cancelar-remove">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Estilos do modal inline (mantidos) -->
+    <style>
+        .modal { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; z-index:1000 }
+        .modal-content { background: white; border-radius:8px; padding:24px; max-width:400px; width:90%; box-shadow:0 4px 12px rgba(0,0,0,0.15) }
+        .modal-content h3 { margin-top:0; color:#333 }
+        .modal-botoes { display:flex; gap:12px; justify-content:flex-end }
+        .btn-confirmar { background:#e74c3c; color:white; border:none; padding:8px 16px; border-radius:4px }
+        .btn-cancelar { background:#ecf0f1; color:#333; border:none; padding:8px 16px; border-radius:4px }
+    </style>
+
+</body>
+</html>

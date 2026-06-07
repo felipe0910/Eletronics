@@ -24,7 +24,7 @@
 
 /* 2. O Pulo do Gato: Hover no BANNER inteiro afeta o BOTÃO */
 .banner-1:hover .banner-text a {
-    background-color: #cfd9d9; /* Cor ciana do seu tema */
+    background-color: #ffffff; /* Cor ciana do seu tema */
     color: #18154b;            /* Cor escura do fundo para contraste */
     border-color: #ffffff;
     transform: scale(1.05);    /* Leve zoom no botão para destaque */
@@ -122,7 +122,7 @@
 
 .pc-text h3 {
   font-size: 32px;
-  color: #000000;
+  color: #010e28;
   margin: 0;
   font-weight: 700;
 }
@@ -142,7 +142,7 @@
 
 /* Quando o mouse estiver em QUALQUER LUGAR do .banner-pc, o botão muda */
 .banner-pc:hover .btn-pc {
-   background-color: #000000;/* Cor que você definiu no seu código anterior */
+   background-color: #010e28;/* Cor que você definiu no seu código anterior */
   color: #fff;               /* Texto branco para contraste */
   border-color: #ffffff;
   transform: scale(1.05);    /* Leve aumento para destaque */
@@ -186,7 +186,7 @@
   margin-left: -110px; /* Use isso para empurrar o texto um pouco mais para a direita */
   /* Ou use padding-left: 5%; se quiser algo proporcional */
   font-size: 32px;
-  color: #000;
+  color: #010e28;
   
   font-weight: 500;
   
@@ -255,7 +255,7 @@
 
 .btn-fone:hover {
     /* No hover ele pode ganhar um fundo leve ou apenas aumentar */
-    background-color: rgba(0, 0, 0, 0.05); 
+    background-color: #001338; 
     transform: scale(1.02);
 }
 
@@ -269,7 +269,7 @@
 
 /* Quando o mouse estiver em QUALQUER LUGAR do .banner-pc, o botão muda */
 .banner-fone:hover .btn-fone {
-  background-color: #000000;/* Cor que você definiu no seu código anterior */
+  background-color: #010e28;/* Cor que você definiu no seu código anterior */
   color: #fff;               /* Texto branco para contraste */
   border-color: #ffffff;
   transform: scale(1.05);    /* Leve aumento para destaque */
@@ -365,7 +365,7 @@
 
 /* Quando o mouse estiver em QUALQUER LUGAR do .banner-pc, o botão muda */
 .banner-notebook:hover .btn-note {
-  background-color: #dcdcdc; /* Cor ciana do seu tema */
+  background-color: #ffffff; /* Cor ciana do seu tema */
   color:#2cbfbf ;               /* Texto branco para contraste */
   border-color: #2cbfbf;
   transform: scale(1.05);    /* Leve aumento para destaque */
@@ -514,7 +514,7 @@
 
 /* --- EFEITOS DE HOVER --- */
 .produto-card a:hover .btn-shop {
-    background-color: #000;
+    background-color: #010e28;
     color: #fff;
     border-color: #000;
 }

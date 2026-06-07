@@ -73,25 +73,77 @@ async function carregarProdutosDaTabela() {
 
         listaProdutos.forEach(produto => {
             grid.innerHTML += `
-              <article class="produto-card" role="listitem">
+              <article class="produto-card" role="listitem" data-id="${produto.id_produto}">
                 <button class="produto-fav" aria-label="Adicionar aos favoritos"></button>
                 <figure class="produto-figure">
                   <img src="/interface_grafica/img/${encodeURIComponent(produto.nome_imagem)}" alt="${produto.nome}" class="produto-img" />
                 </figure>
                 <div class="produto-info">
                   <h3 class="produto-titulo">${produto.nome}</h3>
-                  <p class="produto-preco">R$ ${produto.preco.toFixed(2)}</p>
+                  <p class="produto-preco">R$ ${produto.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                 </div>
                 <div class="produto-actions">
-                  <a class="produto-botao" href="compras.html?id=${produto.id_produto}">Comprar</a>
+                  <button class="produto-botao btn-adicionar-carrinho" data-produto='${JSON.stringify({
+                    id_produto: produto.id_produto,
+                    nome: produto.nome,
+                    preco: produto.preco,
+                    nome_imagem: produto.nome_imagem
+                  })}'>
+                    🛒 Adicionar ao Carrinho
+                  </button>
+                  <a class="produto-botao btn-comprar" href="compras.html?id=${produto.id_produto}">
+                     Comprar Agora
+                  </a>
                 </div>
               </article>
             `;
         });
+
+        // Configurar event listeners dos botões
+        configurarBotoesCarrinho();
 
         console.log("🚀 Front-end atualizado com os dados reais do SQL Server!");
 
     } catch (erro) {
         console.error("Erro ao carregar dados no JavaScript:", erro);
     }
+}
+
+// Configurar botões de adicionar ao carrinho
+function configurarBotoesCarrinho() {
+    const botoesAdicionar = document.querySelectorAll('.btn-adicionar-carrinho');
+    
+    botoesAdicionar.forEach(botao => {
+        botao.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            try {
+                const produtoData = JSON.parse(botao.dataset.produto);
+                carrinhoManager.adicionarAoCarrinho(produtoData, 1);
+                
+                // Mostrar feedback visual
+                mostrarNotificacaoAdicao(botao, produtoData.nome);
+                
+                // Atualizar contador no header
+                atualizarContadorCarrinho();
+            } catch (erro) {
+                console.error('Erro ao adicionar ao carrinho:', erro);
+                alert('Erro ao adicionar produto ao carrinho');
+            }
+        });
+    });
+}
+
+// Mostrar notificação quando produto é adicionado
+function mostrarNotificacaoAdicao(botao, nomeProduto) {
+    const textoOriginal = botao.innerHTML;
+    botao.innerHTML = '✓ Adicionado!';
+    botao.style.background = '#2bb9c0';
+    botao.style.color = 'white';
+    
+    setTimeout(() => {
+        botao.innerHTML = textoOriginal;
+        botao.style.background = '';
+        botao.style.color = '';
+    }, 2000);
 }

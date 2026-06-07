@@ -145,7 +145,7 @@ body {
 .comprar__botao {
   width: 100%;
   padding: 16px 24px;
-  background: #0b1d51;
+  background: #001338;
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -157,7 +157,7 @@ body {
 }
 
 .comprar__botao:hover {
-  background: #08163d;
+  background: #109fb8;
 }
 
 .comprar__beneficios {

@@ -97,6 +97,8 @@ function configurarBotaoComprar(idProduto) {
         if (!auth.estaLogado()) {
             // Redirecionar para login com returnUrl
             const returnUrl = window.location.pathname + window.location.search;
+            // Salvar que o usuário estava tentando fazer uma compra de um produto específico
+            sessionStorage.setItem('tentativaCompraId', idProduto);
             window.location.href = '/interface_grafica/tela-login.html?returnUrl=' + encodeURIComponent(returnUrl);
             return;
         }
@@ -166,6 +168,10 @@ function configurarBotaoComprar(idProduto) {
             localStorage.setItem('ultimoPedidoId', dataResposta.id_pedido);
 
             alert('Pedido registrado com sucesso!');
+            
+            // Limpar o carrinho após a compra
+            carrinhoManager.limparCarrinho();
+            
             window.location.href = '/interface_grafica/pedidos.html?id=' + dataResposta.id_pedido;
         } catch (erro) {
             console.error('Erro ao enviar o pedido:', erro);

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../interface_grafica/style/style-global.css" />
+    <link rel="stylesheet" href="../interface_grafica/style/style-checkout.css" />
+    <script src="/interface_grafica/js/acessibilidade.js" defer></script>
+    <script src="/interface_grafica/js/search.js" defer></script>
+    <script src="/interface_grafica/js/cart.js" defer></script>
+    <script src="/interface_grafica/js/auth.js" defer></script>
+    <script src="/interface_grafica/js/avatar.js" defer></script>
+    <script src="/interface_grafica/js/checkout.js" defer></script>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+    <title>Checkout - Eletronics</title>
+</head>
+<body>
+    <header class="main-header">
+        <a href="index.html" class="logo-header">
+            <img src="img/logo.png" alt="logo - eletronics story" />
+        </a>
+
+        <form action="produtos.html" method="get" class="search-form">
+            <label for="search-input" class="sr-only">Pesquisar</label>
+            <input type="search" id="search-input" name="q" placeholder="Search" />
+            <button type="submit">🔍</button>
+        </form>
+
+        <nav class="navegação">
+            <ul>
+                <li><a href="produtos.html?categoria=computadores">Computadores</a></li>
+                <li><a href="produtos.html?categoria=notebooks">Notebook</a></li>
+                <li><a href="produtos.html?categoria=smartphones">Smartphones</a></li>
+                <li><a href="produtos.html?categoria=fones">Fones</a></li>
+                <li><a href="pedidos.html">Meus pedidos</a></li>
+            </ul>
+        </nav>
+
+        <div class="user-actions"></div>
+    </header>
+
+    <main class="checkout-container">
+        <div class="checkout-header">
+            <h1>Finalizar Compra</h1>
+            <p>Revise seus itens e informe o endereço de entrega</p>
+        </div>
+
+        <div class="checkout-layout">
+            <!-- Resumo dos itens -->
+            <section class="checkout-items">
+                <h2>Produtos Selecionados</h2>
+                <div class="checkout-items-list" id="checkout-items-list">
+                    <!-- Itens serão preenchidos via JavaScript -->
+                </div>
+            </section>
+
+            <!-- Formulário de checkout -->
+            <aside class="checkout-form">
+                <h2>Informações de Entrega</h2>
+
+                <form id="form-checkout" class="form-checkout">
+                    <div class="form-group">
+                        <label for="endereco">Endereço de Entrega *</label>
+                        <input 
+                            type="text" 
+                            id="endereco" 
+                            name="endereco" 
+                            placeholder="Rua, número, complemento"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cidade">Cidade *</label>
+                        <input 
+                            type="text" 
+                            id="cidade" 
+                            name="cidade" 
+                            placeholder="Sua cidade"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="estado">Estado *</label>
+                            <input 
+                                type="text" 
+                                id="estado" 
+                                name="estado" 
+                                placeholder="UF"
+                                maxlength="2"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="cep">CEP *</label>
+                            <input 
+                                type="text" 
+                                id="cep" 
+                                name="cep" 
+                                placeholder="00000-000"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <h2 style="margin-top: 24px;">Método de Pagamento</h2>
+
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                            <input 
+                                type="radio" 
+                                name="metodo-pagamento" 
+                                value="pix" 
+                                checked 
+                                required
+                            />
+                            <span>Pix (Aprovação imediata)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                            <input 
+                                type="radio" 
+                                name="metodo-pagamento" 
+                                value="cartao-credito" 
+                                required
+                            />
+                            <span>Cartão de Crédito</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input 
+                                type="radio" 
+                                name="metodo-pagamento" 
+                                value="cartao-debito" 
+                                required
+                            />
+                            <span>Cartão de Débito</span>
+                        </label>
+                    </div>
+
+                    <div class="checkout-resumo">
+                        <h3>Resumo da Compra</h3>
+                        <div class="resumo-linha">
+                            <span>Subtotal:</span>
+                            <span id="resumo-subtotal">R$ 0,00</span>
+                        </div>
+                        <div class="resumo-linha">
+                            <span>Frete:</span>
+                            <span id="resumo-frete">Grátis</span>
+                        </div>
+                        <div class="resumo-linha resumo-total">
+                            <span>Total:</span>
+                            <span id="resumo-total">R$ 0,00</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-finalizar-compra">
+                        Finalizar Compra
+                    </button>
+
+                    <a href="carrinho.html" class="btn-voltar-carrinho">
+                        Voltar ao Carrinho
+                    </a>
+                </form>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <img src="img/Social Icons.png" alt="">
+        <img src="img/logo.png" alt="">
+        <p>We are a residential interior design firm located in Portland. Our boutique-studio offers more than</p>
+    </footer>
+</body>
+</html>

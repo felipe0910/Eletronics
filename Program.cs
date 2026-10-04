@@ -152,7 +152,7 @@ app.MapGet("/api/produtos", (HttpRequest request) => {
 // 6. ROTA DO BOTÃO COMPRAR: BUSCAR UM PRODUTO ÚNICO POR ID
 // Pega a imagem e a 'descricao_comercial' específica do celular clicado
 app.MapGet("/api/produtos/{id}", (int id) => {
-    object produtoEncontrado = null;
+    object? produtoEncontrado = null;
 
     using (SqlConnection conn = new SqlConnection(strConexao)) {
         string sql = "SELECT id_produto, nome, preco, nome_imagem, descricao_comercial FROM Produtos WHERE id_produto = @id";
@@ -275,6 +275,10 @@ app.MapGet("/api/pedidos", (HttpRequest request) => {
 
     return Results.Ok(pedidos);
 });
+
+
+app.MapGet("/", () =>
+    Results.Redirect("/interface_grafica/index.html"));
 
 // 9. Ligar o servidor na porta padrão do seu projeto
 app.Run("http://localhost:5050");

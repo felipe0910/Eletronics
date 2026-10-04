@@ -228,4 +228,131 @@ body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',
     justify-content:center;
 }
 
+/* Carrinho sem colunas ou larguras rígidas em telas estreitas */
+.carrinho-container {
+    width: min(100%, 1200px);
+    padding-inline: clamp(12px, 2.5vw, 24px);
+}
+
+.carrinho-layout,
+.carrinho-layout--design {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 400px);
+    gap: clamp(20px, 4vw, 60px);
+}
+
+.carrinho-itens,
+.carrinho-resumo,
+.resumo-card,
+.carrinho-item,
+.item-detalhes {
+    min-width: 0;
+}
+
+.carrinho-resumo,
+.resumo-card {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.item-nome,
+.carrinho-item-nome,
+.linha-nome {
+    overflow-wrap: anywhere;
+}
+
+.resumo-actions {
+    min-width: 0;
+}
+
+.btn-checkout,
+.btn-limpar-carrinho,
+.btn-continuar-compras {
+    min-height: 48px;
+    height: auto;
+    padding: 12px;
+    text-align: center;
+}
+
+@media (max-width: 960px) {
+    .carrinho-layout,
+    .carrinho-layout--design {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .carrinho-resumo,
+    .resumo-card {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .carrinho-container {
+        margin: 22px auto;
+        padding-inline: 14px;
+    }
+
+    .carrinho-item {
+        display: grid;
+        grid-template-columns: 64px minmax(0, 1fr);
+        align-items: start;
+        gap: 10px 12px;
+        padding: 14px 0;
+    }
+
+    .item-imagem,
+    .carrinho-item-imagem {
+        width: 64px;
+        height: 64px;
+    }
+
+    .item-detalhes {
+        flex: initial;
+    }
+
+    .item-controles {
+        grid-column: 1 / -1;
+        width: 100%;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .item-quantidade {
+        padding: 4px;
+    }
+
+    .btn-qty {
+        min-width: 40px;
+        min-height: 40px;
+    }
+
+    .subtotal-item {
+        min-width: 0;
+        text-align: left;
+    }
+
+    .carrinho-resumo,
+    .resumo-card {
+        padding: 20px 16px;
+    }
+
+    .resumo-actions {
+        flex-direction: column;
+    }
+
+    .resumo-actions .btn-checkout,
+    .resumo-actions .btn-limpar-carrinho {
+        flex: initial;
+        width: 100%;
+    }
+
+    .resumo-lista .linha-resumo {
+        gap: 12px;
+    }
+
+    .resumo-lista .linha-resumo .linha-preco {
+        min-width: 80px;
+    }
+}
+
 

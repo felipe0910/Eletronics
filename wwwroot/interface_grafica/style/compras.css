@@ -345,3 +345,239 @@ body {
     max-height: 500px !important; /* Impede que ele ultrapasse o topo/rodapé */
     object-fit: contain !important; /* Mantém a proporção perfeita sem distorcer */
 }
+
+
+
+
+/* ================================
+   MODAL DE AVISO
+================================ */
+
+/* ================================
+   MODAL DE AVISO
+================================ */
+
+.modal-aviso {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    background: rgba(0, 19, 56, 0.55);
+    backdrop-filter: blur(4px);
+
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-aviso-caixa {
+    width: 400px;
+    max-width: 90%;
+
+    padding: 32px;
+
+    background: #ffffff;
+    border-radius: 16px;
+
+    text-align: center;
+
+    box-shadow: 0 20px 50px rgba(0, 19, 56, 0.25);
+
+    animation: aparecerAviso 0.25s ease;
+}
+
+/* Ícone */
+.modal-icone {
+    width: 58px;
+    height: 58px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #001338;
+    color: #ffffff;
+
+    font-size: 27px;
+    font-weight: 700;
+}
+
+/* Título */
+.modal-aviso-caixa h2 {
+    margin: 0 0 10px;
+
+    color: #001338;
+
+    font-size: 21px;
+    font-weight: 700;
+}
+
+/* Mensagem */
+.modal-aviso-caixa p {
+    margin: 0 0 25px;
+
+    color: #555555;
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* Botão */
+#btnFecharAviso {
+    width: 100%;
+
+    padding: 13px 20px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #001338;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+#btnFecharAviso:hover {
+    background: #109fb8;
+    transform: translateY(-1px);
+}
+
+/* Animação */
+@keyframes aparecerAviso {
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+  }
+
+  /* Ajustes responsivos da página de compra */
+  .comprar {
+    width: min(100%, 1200px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: clamp(24px, 5vw, 60px) clamp(16px, 3vw, 40px);
+    gap: clamp(24px, 5vw, 60px);
+  }
+
+  .comprar__imagem {
+    min-width: 0 !important;
+    padding: clamp(8px, 2vw, 20px);
+  }
+
+  .comprar .comprar__imagem {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .comprar__imagem img {
+    width: min(100%, 320px) !important;
+    max-width: 100% !important;
+  }
+
+  .comprar__info,
+  .comprar__cabecalho,
+  .comprar__descricao,
+  .comprar__endereco-container {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .comprar__titulo,
+  .comprar__descricao-texto {
+    overflow-wrap: anywhere;
+  }
+
+  .comprar__endereco-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .comprar__endereco-input {
+    width: 100%;
+    max-width: 100%;
+    min-height: 48px;
+  }
+
+  .comprar__pagamento-opcao input[type="radio"] {
+    flex: 0 0 auto;
+  }
+
+  .comprar__beneficios {
+    flex-wrap: wrap;
+  }
+
+  .beneficio {
+    min-width: 0;
+  }
+
+  .modal-aviso-caixa {
+    width: min(400px, calc(100% - 24px));
+    max-height: calc(100dvh - 24px);
+    overflow-y: auto;
+    padding: clamp(20px, 6vw, 32px);
+  }
+
+  @media (max-width: 768px) {
+    .comprar {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 28px 20px;
+      gap: 24px;
+    }
+
+    .comprar__imagem img {
+      width: min(75%, 320px) !important;
+    }
+
+    .comprar__beneficios {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+    }
+  }
+
+  @media (max-width: 480px) {
+    .comprar {
+      padding: 20px 14px;
+      gap: 20px;
+    }
+
+    .comprar__titulo {
+      font-size: 24px;
+    }
+
+    .comprar__preco {
+      font-size: 21px;
+    }
+
+    .comprar__quantidade {
+      gap: 14px;
+    }
+
+    .quantidade-btn {
+      min-width: 44px;
+      min-height: 44px;
+    }
+
+    .comprar__botao {
+      min-height: 50px;
+    }
+
+    .comprar__beneficios {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }

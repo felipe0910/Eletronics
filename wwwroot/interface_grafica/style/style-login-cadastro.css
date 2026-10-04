@@ -143,6 +143,61 @@ footer {
    
     
 }
+
+/* Formulários de autenticação em telas estreitas */
+.login-wrapper {
+    width: 100%;
+    min-width: 0;
+    padding: clamp(24px, 6vw, 60px) 16px;
+}
+
+.auth-card {
+    width: min(100%, 420px);
+    min-width: 0;
+    padding: clamp(20px, 6vw, 40px);
+    margin-bottom: clamp(24px, 6vw, 80px);
+}
+
+.auth-form,
+.input-group {
+    min-width: 0;
+    width: 100%;
+}
+
+.input-group input {
+    width: 100%;
+    max-width: 100%;
+    min-height: 46px;
+}
+
+.btn-auth {
+    min-height: 48px;
+}
+
+.auth-footer {
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+    .login-wrapper {
+        justify-content: flex-start;
+        padding: 24px 14px;
+    }
+
+    .auth-card {
+        padding: 22px 18px;
+        margin-bottom: 16px;
+    }
+
+    .auth-header {
+        margin-bottom: 22px;
+    }
+
+    .auth-header h2 {
+        font-size: 22px;
+    }
+}
   
 
    

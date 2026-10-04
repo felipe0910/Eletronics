@@ -272,3 +272,120 @@
     width: 100%;
     max-width: 100%;
 }
+
+/* Campos e colunas fluidos no checkout */
+.checkout-container {
+    width: min(100%, 1280px);
+    padding-inline: clamp(12px, 2.5vw, 24px);
+}
+
+.checkout-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
+}
+
+.checkout-items,
+.checkout-form,
+.checkout-item,
+.checkout-item-info,
+.form-group {
+    min-width: 0;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    max-width: 100%;
+    min-height: 44px;
+}
+
+.form-checkout input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+}
+
+.checkout-item-nome {
+    overflow-wrap: anywhere;
+}
+
+.checkout-item-detalhes {
+    flex-wrap: wrap;
+}
+
+.checkout-resumo,
+.resumo-linha {
+    min-width: 0;
+}
+
+@media (max-width: 900px) {
+    .checkout-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .checkout-form {
+        position: static;
+        top: auto;
+    }
+}
+
+@media (max-width: 560px) {
+    .checkout-container {
+        margin: 24px auto;
+        padding-inline: 12px;
+    }
+
+    .checkout-header {
+        margin-bottom: 24px;
+    }
+
+    .checkout-header h1 {
+        font-size: 1.65rem;
+    }
+
+    .checkout-header p {
+        overflow-wrap: anywhere;
+    }
+
+    .checkout-items,
+    .checkout-form {
+        padding: 16px;
+    }
+
+    .checkout-item {
+        grid-template-columns: 64px minmax(0, 1fr);
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .checkout-item-imagem {
+        width: 64px;
+        height: 64px;
+    }
+
+    .checkout-item-preco {
+        grid-column: 2;
+        text-align: left;
+        font-size: 1rem;
+    }
+
+    .form-row {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 10px;
+    }
+
+    .resumo-linha {
+        gap: 10px;
+    }
+
+    .btn-finalizar-compra,
+    .btn-voltar-carrinho {
+        min-height: 48px;
+    }
+}
+
+@media (max-width: 360px) {
+    .form-row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
   carregarProdutosDaTabela();
 
   const searchForm = document.querySelector('.search-form');
@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     searchForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const term = searchInput.value.trim();
-      const dest = '/interface_grafica/produtos.html' + (term ? `?q=${encodeURIComponent(term)}` : '');
+      const dest = 'produtos.html' + (term ? `?q=${encodeURIComponent(term)}` : '');
       window.location.href = dest;
     });
   }
@@ -30,7 +30,7 @@ async function carregarProdutosDaTabela() {
     const rota = '/api/produtos' + (params.length ? ('?' + params.join('&')) : '');
 
     try {
-        const resposta = await fetch(rota);
+        const resposta = await fetch(window.apiUrl(rota));
         const listaProdutos = await resposta.json();
 
         grid.innerHTML = "";
@@ -76,7 +76,7 @@ async function carregarProdutosDaTabela() {
               <article class="produto-card" role="listitem" data-id="${produto.id_produto}">
                 <button class="produto-fav" aria-label="Adicionar aos favoritos"></button>
                 <figure class="produto-figure">
-                  <img src="/interface_grafica/img/${encodeURIComponent(produto.nome_imagem)}" alt="${produto.nome}" class="produto-img" />
+                  <img src="img/${encodeURIComponent(produto.nome_imagem)}" alt="${produto.nome}" class="produto-img" />
                 </figure>
                 <div class="produto-info">
                   <h3 class="produto-titulo">${produto.nome}</h3>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../interface_grafica/style/style-global.css" />
+    <link rel="stylesheet" href="../interface_grafica/style/style-login-cadastro.css">
+    <title>Eletronics - Cadastro</title>
+    <script src="/interface_grafica/js/search.js" defer></script>
+    <script src="/interface_grafica/js/cart.js" defer></script>
+    <script src="../interface_grafica/js/auth.js" defer></script>
+    <script src="/interface_grafica/js/avatar.js" defer></script>
+
+          <div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
+<script>
+new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+</head>
+<body>
+
+    <header class="main-header">
+        <a href="index.html" class="logo-header">
+            <img src="img/logo.png" alt="logo - eletronics story" />
+        </a>
+
+        <form action="produtos.html" method="get" class="search-form">
+            <label for="search-input" class="sr-only">Pesquisar</label>
+            <input type="search" id="search-input" name="q" placeholder="Search" />
+            <button type="submit">🔍</button>
+        </form>
+
+       <nav class="navegação">
+  <ul>
+    <li><a href="produtos.html?categoria=computadores">Computadores</a></li>
+    <li><a href="produtos.html?categoria=notebooks">Notebook</a></li>
+    <li><a href="produtos.html?categoria=smartphones">Smartphones</a></li>
+    <li><a href="produtos.html?categoria=fones">Fones</a></li>
+    <li><a href="pedidos.html">Meus pedidos</a></li>
+  </ul>
+</nav>
+
+        <div class="user-actions">
+            <a href="#" aria-label="carrinho de compras" class="icon-carrinho">
+                <img src="img/carrinho.png" alt="" />
+            </a>
+            <button type="button" aria-label="conta" class="button-conta">
+                <img src="img/user.png" alt="" />
+            </button>
+        </div>
+    </header>
+
+    <main class="login-wrapper">
+        <section class="auth-card">
+            <div class="auth-header">
+                <img src="img/logo.png" alt="Logo">
+                <h2>Crie sua conta</h2>
+                <p>Preencha os dados abaixo para se cadastrar</p>
+            </div>
+
+  <form action="/cadastrar-usuario" method="POST" class="auth-form">
+    <div class="input-group">
+        <label>Nome Completo</label>
+        <input type="text" name="nomeCompleto" placeholder="Seu nome completo" required>
+    </div>
+
+    <div class="input-group">
+        <label>E-mail</label>
+        <input type="email" name="email" placeholder="seu@email.com" required>
+    </div>
+
+    <div class="input-group">
+        <label>Senha</label>
+        <input type="password" name="senha" placeholder="Crie uma senha" required>
+    </div>
+
+    <button type="submit" class="btn-auth">Cadastrar</button>
+    
+    <div class="auth-footer">
+        <span>Já possui uma conta? <a href="tela-login.html">Faça login</a></span>
+    </div>
+</form>
+        </section>
+    </main>
+
+    <footer>
+        <img src="img/Social Icons.png" alt="">
+        <img src="img/logo.png" alt="">
+        <p>We are a residential interior design firm located in Portland. Our boutique-studio offers more than</p>
+    </footer>
+    
+</body>
+</html>

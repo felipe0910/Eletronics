@@ -1,12 +1,13 @@
 
 
-document.querySelector('#avatarLibras')
-.addEventListener('click', () => {
+const avatarLibras = document.querySelector('#avatarLibras');
 
-   const btn = document.querySelector('[vw-access-button]');
+if (avatarLibras) {
+   avatarLibras.addEventListener('click', () => {
+      const btn = document.querySelector('[vw-access-button]');
 
-   if(btn){
-      btn.click();
-   }
-
-});
+      if (btn) {
+         btn.click();
+      }
+   });
+}

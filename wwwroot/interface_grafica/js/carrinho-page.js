@@ -36,9 +36,9 @@ function renderizarCarrinho() {
         const itemHtml = `
             <div class="carrinho-item" data-id="${item.id_produto}">
                 <div class="item-imagem">
-                    <img src="/interface_grafica/img/${encodeURIComponent(item.nome_imagem)}" 
+                    <img src="img/${encodeURIComponent(item.nome_imagem)}"
                          alt="${item.nome}" 
-                         onerror="this.src='/interface_grafica/img/placeholder.png'">
+                         onerror="this.src='img/placeholder.png'">
                 </div>
                 <div class="item-detalhes">
                     <h3 class="item-nome">${item.nome}</h3>
@@ -195,7 +195,7 @@ function configurarEventos() {
             }
 
             // Redirecionar para checkout
-            window.location.href = '/interface_grafica/checkout.html';
+            window.location.href = 'checkout.html';
         });
     }
 

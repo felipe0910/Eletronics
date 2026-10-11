@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <script src="js/api-config.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../interface_grafica/style/style-global.css" />
-    <link rel="stylesheet" href="../interface_grafica/style/style-login-cadastro.css">
-    <script src="/interface_grafica/js/search.js" defer></script>
-    <script src="/interface_grafica/js/cart.js" defer></script>
-    <script src="/interface_grafica/js/auth.js" defer></script>
-    <script src="/interface_grafica/js/avatar.js" defer></script>
+    <link rel="stylesheet" href="style/style-global.css" />
+    <link rel="stylesheet" href="style/style-login-cadastro.css">
+    <script src="js/search.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/auth.js" defer></script>
+    <script src="js/avatar.js" defer></script>
 
           <div vw class="enabled">
   <div vw-access-button class="active"></div>
@@ -107,7 +108,7 @@ new window.VLibras.Widget('https://vlibras.gov.br/app');
             formData.append('email', email);
             formData.append('senha', senha);
 
-            const resp = await fetch('/login', {
+            const resp = await fetch(window.apiUrl('/login'), {
                 method: 'POST',
                 body: formData
             });
@@ -132,10 +133,10 @@ new window.VLibras.Widget('https://vlibras.gov.br/app');
                 const params = new URLSearchParams(window.location.search);
                 const returnUrl = params.get('returnUrl');
                 
-                if (returnUrl && (returnUrl.startsWith('/') || returnUrl.includes('interface_grafica'))) {
+                if (returnUrl && !/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(returnUrl)) {
                     window.location.href = returnUrl;
                 } else {
-                    window.location.href = '/interface_grafica/home.html';
+                    window.location.href = 'home.html';
                 }
             }
         } catch (erro) {

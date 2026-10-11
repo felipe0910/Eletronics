@@ -1,8 +1,8 @@
-// Gerenciar página de checkout
+﻿// Gerenciar página de checkout
 document.addEventListener('DOMContentLoaded', () => {
     // Verificar se o usuário está logado
     if (!auth.estaLogado()) {
-        window.location.href = '/interface_grafica/tela-login.html?returnUrl=' + encodeURIComponent('/interface_grafica/checkout.html');
+        window.location.href = 'tela-login.html?returnUrl=' + encodeURIComponent('checkout.html');
         return;
     }
 
@@ -17,7 +17,7 @@ function renderizarItensCheckout() {
     if (!listaItems) return;
 
     if (carrinho.length === 0) {
-        listaItems.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Seu carrinho está vazio. <a href="/interface_grafica/produtos.html">Voltar às compras</a></p>';
+        listaItems.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Seu carrinho está vazio. <a href="produtos.html">Voltar às compras</a></p>';
         return;
     }
 
@@ -32,9 +32,9 @@ function renderizarItensCheckout() {
         const itemHtml = `
             <div class="checkout-item">
                 <div class="checkout-item-imagem">
-                    <img src="/interface_grafica/img/${encodeURIComponent(item.nome_imagem)}" 
+                    <img src="img/${encodeURIComponent(item.nome_imagem)}"
                          alt="${item.nome}"
-                         onerror="this.src='/interface_grafica/img/placeholder.png'">
+                         onerror="this.src='img/placeholder.png'">
                 </div>
                 <div class="checkout-item-info">
                     <h3 class="checkout-item-nome">${item.nome}</h3>
@@ -125,7 +125,7 @@ function configurarFormCheckout() {
                     endereco_entrega: enderecoCompleto
                 };
 
-                const resposta = await fetch('/api/pedidos', {
+                const resposta = await fetch(window.apiUrl('/api/pedidos'), {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -149,9 +149,9 @@ function configurarFormCheckout() {
 
             // Redirecionar para pedidos
             if (pedidos.length > 0) {
-                window.location.href = `/interface_grafica/pedidos.html?id=${pedidos[0].id_pedido}`;
+                window.location.href = `pedidos.html?id=${pedidos[0].id_pedido}`;
             } else {
-                window.location.href = '/interface_grafica/pedidos.html';
+                window.location.href = 'pedidos.html';
             }
 
         } catch (erro) {

@@ -1,16 +1,18 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
+    <script src="js/api-config.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../interface_grafica/style/style-global.css" />
-    <link rel="stylesheet" href="../interface_grafica/style/style-land-page.css">
-    <link rel="icon" type="image/png" href="../interface_grafica/img/Logo eletronics.png">
-    <script src="../interface_grafica/js/acessibilidade.js" defer></script>
-      <script src="../interface_grafica/js/auth.js" defer></script>
-      <script src="../interface_grafica/js/cart.js" defer></script>
-      <script src="/interface_grafica/js/search.js" defer></script>
-      <script src="/interface_grafica/js/avatar.js" defer></script>
+    <link rel="stylesheet" href="style/style-global.css" />
+    <link rel="stylesheet" href="style/style-land-page.css">
+    <link rel="icon" type="image/png" href="img/Logo eletronics.png">
+    <script src="js/promo-carousel.js" defer></script>
+    <script src="js/acessibilidade.js" defer></script>
+      <script src="js/auth.js" defer></script>
+      <script src="js/cart.js" defer></script>
+      <script src="js/search.js" defer></script>
+      <script src="js/avatar.js" defer></script>
 
             <div vw class="enabled">
   <div vw-access-button class="active"></div>
@@ -54,8 +56,8 @@ new window.VLibras.Widget('https://vlibras.gov.br/app');
         <a href="" aria-label="carrinho de compras" class="icon-carrinho">
           <img src="img/carrinho.png" alt="" />
         </a>
-        <a href="../interface_grafica/tela-login.html"><button aria-label="conta" class="button-conta"> 
-          <img src="../img/user.png" alt="Conta" />
+        <a href="tela-login.html"><button aria-label="conta" class="button-conta">
+          <img src="img/user.png" alt="Conta" />
           </button>
         </a> 
           
@@ -67,7 +69,15 @@ new window.VLibras.Widget('https://vlibras.gov.br/app');
 
       
      
-  <section class="banner-1"> 
+  <section class="promo-carousel" role="region" aria-label="Ofertas em destaque">
+    <div class="promo-carousel-controls" role="group" aria-label="Selecionar oferta">
+      <button type="button" data-slide="promo-smartphone" aria-label="Oferta 1 de 4: Smartphones" aria-current="true"></button>
+      <button type="button" data-slide="promo-computador" aria-label="Oferta 2 de 4: Computadores"></button>
+      <button type="button" data-slide="promo-fones" aria-label="Oferta 3 de 4: Fones"></button>
+      <button type="button" data-slide="promo-notebook" aria-label="Oferta 4 de 4: Notebook"></button>
+    </div>
+    <div class="promo-carousel-track">
+  <section class="banner-1" id="promo-smartphone">
   <div class="banner-text">
     
     <span>Eletronics</span> <!--Ele ocupa apenas o espaço do conteúdo que está dentro dele e não pula linha-->
@@ -87,7 +97,7 @@ new window.VLibras.Widget('https://vlibras.gov.br/app');
 <div class="banners-grid">
 
   
-<section class="banner-pc">
+<section class="banner-pc" id="promo-computador">
 
   <img src="img/pc.png" alt="Computador Gamer" class="pc-img">
   
@@ -102,7 +112,7 @@ new window.VLibras.Widget('https://vlibras.gov.br/app');
 
 
 
-<section class="banner-fone">
+<section class="banner-fone" id="promo-fones">
   <img src="img/fone.png" alt=" Gamer" class="fone-img">
   
   <div class="fone-text">
@@ -113,7 +123,7 @@ new window.VLibras.Widget('https://vlibras.gov.br/app');
 </section>
 
 
-<section class=" banner-notebook">
+<section class=" banner-notebook" id="promo-notebook">
   
   
   <div class="notebook-text">
@@ -127,31 +137,33 @@ new window.VLibras.Widget('https://vlibras.gov.br/app');
 </section>
 
 </div>
+    </div>
+  </section>
 
 <section class="categoria">
   <div class="categoria-item">
-    <a href="../interface_grafica/produtos.html?categoria=smartphones">
+    <a href="produtos.html?categoria=smartphones">
       <img src="img/Phones.png" alt="Phones">
       <span>Phones</span>
     </a>
   </div>
   
   <div class="categoria-item">
-    <a href="../interface_grafica/produtos.html?categoria=fones">
+    <a href="produtos.html?categoria=fones">
       <img src="img/Headphones.png" alt="Headphones">
       <span>Headphones</span>
     </a>
   </div>
   
   <div class="categoria-item">
-    <a href="../interface_grafica/produtos.html?categoria=computadores">
+    <a href="produtos.html?categoria=computadores">
       <img src="img/Computers.png" alt="Computers">
       <span>Computers</span>
     </a>
   </div>
   
   <div class="categoria-item">
-    <a href="../interface_grafica/produtos.html?categoria=notebooks">
+    <a href="produtos.html?categoria=notebooks">
       <img src="img/categoria-note.png" alt="Notebook">
       <span>Notebook</span>
     </a>

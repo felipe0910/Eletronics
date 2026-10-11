@@ -4,7 +4,14 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options => options.AddPolicy("capacitor", policy =>
+    policy.WithOrigins("https://localhost", "capacitor://localhost")
+        .AllowAnyHeader()
+        .AllowAnyMethod()));
+
 var app = builder.Build();
+
+app.UseCors("capacitor");
 
 // 1. Configurações de Arquivos (Essencial para não dar erro 404)
 app.UseDefaultFiles();
@@ -281,4 +288,4 @@ app.MapGet("/", () =>
     Results.Redirect("/interface_grafica/index.html"));
 
 // 9. Ligar o servidor na porta padrão do seu projeto
-app.Run("http://localhost:5050");
+app.Run("http://0.0.0.0:5050");

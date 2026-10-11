@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../interface_grafica/style/style-global.css" />
+    <link rel="stylesheet" href="../interface_grafica/style/style-produtos.css" />
+    <script src="js/acessibilidade.js?v=1" defer></script>
+    <script src="js/search.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/produtos.js?v=1" defer></script>
+    <script src="../interface_grafica/js/auth.js" defer></script>
+    <script src="/interface_grafica/js/avatar.js" defer></script>
+
+          <div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
+<script>
+new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+<title>Eletronics</title>
+</head>
+<body>
+
+    <header class="main-header">
+      <a href="index.html" class="logo-header">
+        <img src="img/logo.png" alt="logo - eletronics story" />
+      </a>
+
+      <form action="produtos.html" method="get" class="search-form">
+        <label for="search-input" class="sr-only">Pesquisar</label>
+        <input type="search" id="search-input" name="q" placeholder="Search" />
+        <button type="submit">🔍</button>
+      </form>
+
+      <nav class="navegação">
+  <ul>
+    <li><a href="produtos.html">Todos</a></li>
+    <li><a href="produtos.html?categoria=computadores">Computadores</a></li>
+    <li><a href="produtos.html?categoria=notebooks">Notebook</a></li>
+    <li><a href="produtos.html?categoria=smartphones">Smartphones</a></li>
+    <li><a href="produtos.html?categoria=fones">Fones</a></li>
+    <li><a href="pedidos.html">Meus pedidos</a></li>
+  </ul>
+</nav>
+
+      <div class="user-actions">
+        <a href="#" aria-label="carrinho de compras" class="icon-carrinho">
+          <img src="img/carrinho.png" alt="" />
+        </a>
+        <button type="button" aria-label="conta" class="button-conta">
+          <img src="img/user.png" alt="" />
+        </button>
+      </div>
+     </header>
+
+    <main>
+      <section class="lista-produtos">
+        <div class="lista-produtos__header">
+          <div class="lista-produtos__info">
+            <h1 class="produtos-title">Todos os produtos</h1>
+            <span class="selecionados">Selected Products: <strong>...</strong></span>
+          </div>
+          <div class="lista-produtos__controls">
+            <label for="ordenar" class="sr-only">Ordenar por</label>
+            <select id="ordenar" name="ordenar">
+              <option value="rating">By rating</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="produtos-grid" role="list"></div>
+        <div class="produtos-grid__empty" style="display:none; text-align:center; padding: 52px 16px; color:#475569;">
+          <strong style="display:block; font-size:1.1rem; margin-bottom:12px;">Produto não encontrado</strong>
+          <p style="margin:0; font-size:0.95rem; color:#6b7280;">Tente outro termo, categoria ou verifique a grafia.</p>
+        </div>
+
+      </section>
+      </main>
+
+      <footer>
+        <img src="img/Social Icons.png" alt="">
+        <img src="img/logo.png" alt="">
+        <p>We are a residential interior design firm located in Portland. Our boutique-studio offers more than</p>
+    </footer>
+    
+</body>
+ </html>

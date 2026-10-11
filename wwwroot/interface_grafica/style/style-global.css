@@ -75,34 +75,52 @@ textarea {
 }
 
 /* 3. Navegação */
+.navegação {
+  display: flex;
+  align-items: center;
+}
+
 .navegação ul {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px clamp(12px, 1.5vw, 24px);
   list-style: none;
-  gap: 30px; /* Espaço entre os links */
 }
 
 .navegação a {
-  text-decoration: none;
-  color: #999; /* Cor cinza da imagem */
+  position: relative;
+  display: inline-block;
+  padding: 10px 2px;
+  color: #475569;
   font-size: 14px;
-  transition: color 0.7s;
-}
-
-.navegação a:hover {
-  color: #000; /* Destaque ao passar o mouse */
-}
-
-.navegação a {
+  line-height: 1.35;
   text-decoration: none;
-  color: #999;
-  font-size: 14px;
-  display: inline-block; /* Importante para o transform funcionar bem */
-  transition: color 0.3s, transform 0.3s; /* Diminuí o tempo para ser mais responsivo */
+  transition: color 0.2s ease;
 }
 
-.navegação a:hover {
-  color: #000;
-  transform: scale(1.05); /* Agora apenas o link focado cresce */
+.navegação a::after {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  left: 0;
+  height: 2px;
+  background: #2cbfbf;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.navegação a:hover,
+.navegação a:focus-visible {
+  color: #001338;
+}
+
+.navegação a:hover::after,
+.navegação a:focus-visible::after {
+  transform: scaleX(1);
 }
 
 /* 4. Ícones da Direita */
@@ -744,17 +762,6 @@ footer p {
   min-width: 0;
 }
 
-.navegação ul {
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px clamp(12px, 1.5vw, 24px);
-}
-
-.navegação a {
-  padding: 10px 2px;
-  line-height: 1.35;
-}
-
 .user-actions {
   flex: 0 0 auto;
   gap: 10px;
@@ -819,7 +826,16 @@ textarea {
   }
 
   .navegação ul {
-    gap: 4px 16px;
+    width: 100%;
+    gap: 2px clamp(8px, 3vw, 16px);
+  }
+
+  .navegação li {
+    flex: 0 0 auto;
+  }
+
+  .navegação a {
+    padding: 8px 4px;
   }
 
   .user-actions {
@@ -883,7 +899,7 @@ textarea {
 
   .navegação a {
     font-size: 13px;
-    padding: 8px 2px;
+    padding: 8px 4px;
   }
 
   .user-actions {

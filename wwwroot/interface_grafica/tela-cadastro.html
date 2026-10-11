@@ -1,15 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <script src="js/api-config.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../interface_grafica/style/style-global.css" />
-    <link rel="stylesheet" href="../interface_grafica/style/style-login-cadastro.css">
+    <link rel="stylesheet" href="style/style-global.css" />
+    <link rel="stylesheet" href="style/style-login-cadastro.css">
     <title>Eletronics - Cadastro</title>
-    <script src="/interface_grafica/js/search.js" defer></script>
-    <script src="/interface_grafica/js/cart.js" defer></script>
-    <script src="../interface_grafica/js/auth.js" defer></script>
-    <script src="/interface_grafica/js/avatar.js" defer></script>
+    <script src="js/search.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/auth.js" defer></script>
+    <script src="js/avatar.js" defer></script>
 
           <div vw class="enabled">
   <div vw-access-button class="active"></div>
@@ -66,7 +67,7 @@ new window.VLibras.Widget('https://vlibras.gov.br/app');
                 <p>Preencha os dados abaixo para se cadastrar</p>
             </div>
 
-  <form action="/cadastrar-usuario" method="POST" class="auth-form">
+  <form action="cadastrar-usuario" method="POST" class="auth-form" id="form-cadastro">
     <div class="input-group">
         <label>Nome Completo</label>
         <input type="text" name="nomeCompleto" placeholder="Seu nome completo" required>
@@ -90,6 +91,32 @@ new window.VLibras.Widget('https://vlibras.gov.br/app');
 </form>
         </section>
     </main>
+
+    <script>
+        const formCadastro = document.getElementById('form-cadastro');
+        formCadastro.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const botao = formCadastro.querySelector('button[type="submit"]');
+            botao.disabled = true;
+
+            try {
+                const resposta = await fetch(window.apiUrl('/cadastrar-usuario'), {
+                    method: 'POST',
+                    body: new FormData(formCadastro)
+                });
+
+                if (!resposta.ok) {
+                    throw new Error('Não foi possível cadastrar. Verifique os dados e tente novamente.');
+                }
+
+                window.location.href = 'tela-login.html';
+            } catch (erro) {
+                console.error('Erro ao cadastrar usuário:', erro);
+                alert(erro.message || 'Erro ao conectar com o servidor. Tente novamente.');
+                botao.disabled = false;
+            }
+        });
+    </script>
 
     <footer>
         <img src="img/Social Icons.png" alt="">

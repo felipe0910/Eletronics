@@ -1,7 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
     // Verificar se usuário está logado
     if (!auth.estaLogado()) {
-        window.location.href = '/interface_grafica/tela-login.html?returnUrl=' + encodeURIComponent(window.location.pathname);
+        window.location.href = 'tela-login.html?returnUrl=' + encodeURIComponent(window.location.pathname);
         return;
     }
 
@@ -27,7 +27,7 @@ async function carregarPedidos() {
         throw new Error('Usuário não autenticado');
       }
 
-      const resposta = await fetch(`/api/pedidos?id_usuario=${usuario.id_usuario}`);
+      const resposta = await fetch(window.apiUrl(`/api/pedidos?id_usuario=${usuario.id_usuario}`));
       if (!resposta.ok) {
         throw new Error(`Erro na requisição: ${resposta.status}`);
       }
@@ -44,7 +44,7 @@ async function carregarPedidos() {
       await Promise.all(pedidos.map(async (pedido) => {
         if (!pedido.produto_imagem && pedido.id_produto) {
           try {
-            const produtoResp = await fetch(`/api/produtos/${pedido.id_produto}`);
+            const produtoResp = await fetch(window.apiUrl(`/api/produtos/${pedido.id_produto}`));
             if (produtoResp.ok) {
               const produtoDados = await produtoResp.json();
               pedido.produto_imagem = produtoDados?.nome_imagem ?? null;
@@ -95,10 +95,10 @@ function criarCardPedido(pedido, destaque) {
 
     const previsao = calcularPrevisaoEntrega(pedido.data_compra);
     const imagemProduto = pedido.produto_imagem
-        ? `/interface_grafica/img/${encodeURIComponent(pedido.produto_imagem)}`
-        : '/interface_grafica/img/pc.png';
+        ? `img/${encodeURIComponent(pedido.produto_imagem)}`
+        : 'img/pc.png';
 
-    const mediaHtml = `<img src="${imagemProduto}" alt="Imagem do ${pedido.produto_nome}" onerror="this.onerror=null; this.src='/interface_grafica/img/pc.png'" />`;
+    const mediaHtml = `<img src="${imagemProduto}" alt="Imagem do ${pedido.produto_nome}" onerror="this.onerror=null; this.src='img/pc.png'" />`;
 
     return `
       <article class="pedido-card ${destaque ? 'pedido-card--recente' : ''}">

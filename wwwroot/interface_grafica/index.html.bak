@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../interface_grafica/style/style-global.css" />
+    <link rel="stylesheet" href="../interface_grafica/style/style-land-page.css">
+    <link rel="icon" type="image/png" href="../interface_grafica/img/Logo eletronics.png">
+    <script src="../interface_grafica/js/acessibilidade.js" defer></script>
+      <script src="../interface_grafica/js/auth.js" defer></script>
+      <script src="../interface_grafica/js/cart.js" defer></script>
+      <script src="/interface_grafica/js/search.js" defer></script>
+      <script src="/interface_grafica/js/avatar.js" defer></script>
+
+            <div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
+<script>
+new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+    <title>Eletronics</title>
+  </head>
+
+  <body>
+    <header class="main-header">
+      <a href="index.html" class="logo-header">
+        <img src="img/logo.png" alt="logo - eletronics story" />
+      </a>
+
+      <form action="produtos.html" method="get" class="search-form">
+        <label for="search-input" class="sr-only">Pesquisar</label>
+        <input type="search" id="search-input" name="q" placeholder="Search" />
+        <button type="submit">🔍</button>
+      </form>
+
+     <nav class="navegação">
+  <ul>
+    <li><a href="produtos.html?categoria=computadores">Computadores</a></li>
+    <li><a href="produtos.html?categoria=notebooks">Notebook</a></li>
+    <li><a href="produtos.html?categoria=smartphones">Smartphones</a></li>
+    <li><a href="produtos.html?categoria=fones">Fones</a></li>
+    <li><a href="pedidos.html">Meus pedidos</a></li>
+  </ul>
+</nav>
+
+      <div class="user-actions">
+        <a href="" aria-label="carrinho de compras" class="icon-carrinho">
+          <img src="img/carrinho.png" alt="" />
+        </a>
+        <a href="../interface_grafica/tela-login.html"><button aria-label="conta" class="button-conta"> 
+          <img src="../img/user.png" alt="Conta" />
+          </button>
+        </a> 
+          
+        
+      </div>
+    </header>
+
+    <main>
+
+      
+     
+  <section class="banner-1"> 
+  <div class="banner-text">
+    
+    <span>Eletronics</span> <!--Ele ocupa apenas o espaço do conteúdo que está dentro dele e não pula linha-->
+    <h1>Ofertas</h1>
+    <h2>Smartphones</h2>
+    <p>aproveite as equipamentos na eletronics</p>
+    
+  <a href="produtos.html?categoria=smartphones" class="btn-detalhes">detalhes</a>
+  </div>
+
+  <img  src="img/Iphone Image.png" alt="Iphone" class="banner1-img">
+</section>
+
+
+
+
+<div class="banners-grid">
+
+  
+<section class="banner-pc">
+
+  <img src="img/pc.png" alt="Computador Gamer" class="pc-img">
+  
+  <div class="pc-text">
+    <h3>Computadores</h3>
+    <p>Incredibly powerful CPUs, GPUs, and an SSD with integrated I/O will redefine your experience.</p>
+    <a href="produtos.html?categoria=computadores" class="btn-pc">detalhes</a>
+  </div>
+</section>
+
+
+
+
+
+<section class="banner-fone">
+  <img src="img/fone.png" alt=" Gamer" class="fone-img">
+  
+  <div class="fone-text">
+    <h4>Fones</h4>
+    <p>Computational audio. Listen, it's powerful.</p>
+    <a href="produtos.html?categoria=fones" class="btn-fone">detalhes</a>
+  </div>
+</section>
+
+
+<section class=" banner-notebook">
+  
+  
+  <div class="notebook-text">
+    <h5>Notebook</h5>
+    <p>The new 15‑inch MacBook Air makes room for more of what you love with a spacious Liquid Retina display.</p>
+    
+  <a href="produtos.html?categoria=notebooks" class="btn-note">detalhes</a>
+  <img src="img/MacBook Pro 14.png" alt=" notebook" class="note-img">
+  
+</div>
+</section>
+
+</div>
+
+<section class="categoria">
+  <div class="categoria-item">
+    <a href="../interface_grafica/produtos.html?categoria=smartphones">
+      <img src="img/Phones.png" alt="Phones">
+      <span>Phones</span>
+    </a>
+  </div>
+  
+  <div class="categoria-item">
+    <a href="../interface_grafica/produtos.html?categoria=fones">
+      <img src="img/Headphones.png" alt="Headphones">
+      <span>Headphones</span>
+    </a>
+  </div>
+  
+  <div class="categoria-item">
+    <a href="../interface_grafica/produtos.html?categoria=computadores">
+      <img src="img/Computers.png" alt="Computers">
+      <span>Computers</span>
+    </a>
+  </div>
+  
+  <div class="categoria-item">
+    <a href="../interface_grafica/produtos.html?categoria=notebooks">
+      <img src="img/categoria-note.png" alt="Notebook">
+      <span>Notebook</span>
+    </a>
+  </div>
+</section>   
+
+
+
+<section class="Produtos">
+  <div class="produto-card white">
+    <a href="produtos.html?categoria=fones">
+      <img src="img/fone blu.png" alt="Fone Bluetooth">
+      <span>Fone Bluetooth</span>
+      <p>Fone Bluetooth com cancelamento ativo de ruído, 40h de bateria e som JBL Pro.</p>
+      <div class="btn-shop">Shop Now</div>
+    </a>
+  </div>
+
+  <div class="produto-card light-grey">
+    <a href="produtos.html?categoria=computadores">
+      <img src="img/pc3.webp" alt="Ipad Pro">
+      <span>PC Gamer</span>
+      <p>Desktop gamer com Intel Core i7, 16GB RAM, SSD 1TB e RTX 3070.</p>
+      <div class="btn-shop">Shop Now</div>
+    </a>
+  </div>
+
+  <div class="produto-card medium-grey">
+    <a href="produtos.html?categoria=smartphones">
+      <img src="img/Iphone 14 pro 3.png" alt="Samsung Galaxy">
+      <span>Iphone</span>
+      <p>Tela Super Retina XDR de 6,1 polegadas com Dynamic Island. Câmera Tripla de 48MP e chip A16 Bionic.
+
+</p>
+      <div class="btn-shop">Shop Now</div>
+    </a>
+  </div>
+
+  <div class="produto-card dark-grey">
+    <a href="produtos.html?categoria=notebooks">
+      <img src="img/Macbook 1.png" alt="Macbook Pro">
+      <span>Macbook Pro</span>
+      <p>Notebook fino com chip Apple M2, 8GB RAM, SSD 256GB e tela Retina de 13,6\".</p>
+      <div class="btn-shop">Shop Now</div>
+    </a>
+  </div>
+</section>
+
+
+
+      <footer>
+        <img src="img/Social Icons.png" alt="">
+        <img src="img/logo.png" alt="">
+        <p>We are a residential interior design firm located in Portland. Our boutique-studio offers more than</p>
+      </footer>
+  
+  </body>
+</html>

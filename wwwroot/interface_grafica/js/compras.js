@@ -1,4 +1,4 @@
-console.log('compras.js loaded');
+﻿console.log('compras.js loaded');
 document.addEventListener("DOMContentLoaded", () => {
     carregarDetalhesDoProduto();
 });
@@ -17,7 +17,7 @@ async function carregarDetalhesDoProduto() {
     }
 
     try {
-        const resposta = await fetch(`/api/produtos/${idProduto}`);
+        const resposta = await fetch(window.apiUrl(`/api/produtos/${idProduto}`));
         if (!resposta.ok) throw new Error("Produto não encontrado no banco.");
         
         produtoSelecionado = await resposta.json();
@@ -33,7 +33,7 @@ async function carregarDetalhesDoProduto() {
         if (descricao) descricao.textContent = produtoSelecionado.descricao_comercial;
         
         if (imagem) {
-            imagem.src = `/interface_grafica/img/${encodeURIComponent(produtoSelecionado.nome_imagem)}`;
+            imagem.src = `img/${encodeURIComponent(produtoSelecionado.nome_imagem)}`;
             imagem.alt = produtoSelecionado.nome;
         }
 
@@ -99,7 +99,7 @@ function configurarBotaoComprar(idProduto) {
             const returnUrl = window.location.pathname + window.location.search;
             // Salvar que o usuário estava tentando fazer uma compra de um produto específico
             sessionStorage.setItem('tentativaCompraId', idProduto);
-            window.location.href = '/interface_grafica/tela-login.html?returnUrl=' + encodeURIComponent(returnUrl);
+            window.location.href = 'tela-login.html?returnUrl=' + encodeURIComponent(returnUrl);
             return;
         }
 
@@ -139,7 +139,7 @@ function configurarBotaoComprar(idProduto) {
         };
 
         try {
-            const resposta = await fetch('/api/pedidos', {
+            const resposta = await fetch(window.apiUrl('/api/pedidos'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -172,7 +172,7 @@ function configurarBotaoComprar(idProduto) {
             // Limpar o carrinho após a compra
             carrinhoManager.limparCarrinho();
             
-            window.location.href = '/interface_grafica/pedidos.html?id=' + dataResposta.id_pedido;
+            window.location.href = 'pedidos.html?id=' + dataResposta.id_pedido;
         } catch (erro) {
             console.error('Erro ao enviar o pedido:', erro);
             alert(erro.message || 'Não foi possível finalizar a compra. Tente novamente.');

@@ -62,8 +62,8 @@ function atualizarHeader() {
 
     // Sempre manter o carrinho visível
     let html = `
-        <a href="/interface_grafica/carrinho.html" aria-label="carrinho de compras" class="icon-carrinho">
-            <img src="/interface_grafica/img/carrinho.png" alt="Carrinho" />
+        <a href="carrinho.html" aria-label="carrinho de compras" class="icon-carrinho">
+            <img src="img/carrinho.png" alt="Carrinho" />
             <span class="cart-counter" style="display: none; position: absolute; top: -8px; right: -8px; background: #e74c3c; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">0</span>
         </a>
     `;
@@ -83,8 +83,8 @@ function atualizarHeader() {
     } else {
         // Estado padrão: botão de login
         html += `
-            <a href="/interface_grafica/tela-login.html" class="button-conta" style="display: flex; align-items: center; justify-content: center;">
-                <img src="/interface_grafica/img/user.png" alt="Login" />
+            <a href="tela-login.html" class="button-conta" style="display: flex; align-items: center; justify-content: center;">
+                <img src="img/user.png" alt="Login" />
             </a>
         `;
     }
@@ -97,7 +97,7 @@ function atualizarHeader() {
         btn.addEventListener('click', () => {
             auth.logout();
             alert('Desconectado com sucesso!');
-            window.location.href = '/interface_grafica/index.html';
+            window.location.href = 'index.html';
         });
     }
 
